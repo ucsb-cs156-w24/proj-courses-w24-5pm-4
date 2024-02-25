@@ -73,8 +73,8 @@ describe("UserTable tests", () => {
       </QueryClientProvider>,
     );
 
-    const expectedHeaders = ["id", "Enrollment Code", "Personal Schedule ID"];
-    const expectedFields = ["id", "enrollCd", "psId"];
+    const expectedHeaders = ["id", "Course Name", "Enrollment Code",  "Personal Schedule ID" , "Schdule Name", "Quarter"];
+    const expectedFields = ["id", "courseName", "enrollCd", "psId",  "schduleName", "quarter"];
     const testId = "CourseTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -115,8 +115,8 @@ describe("UserTable tests", () => {
       </QueryClientProvider>,
     );
 
-    const expectedHeaders = ["id", "Enrollment Code", "Personal Schedule ID"];
-    const expectedFields = ["id", "enrollCd", "psId"];
+    const expectedHeaders = ["id", "Course Name", "Enrollment Code",  "Personal Schedule ID" , "Schdule Name", "Quarter"];
+    const expectedFields = ["id", "courseName", "enrollCd", "psId",  "schduleName", "quarter"];
     const testId = "CourseTable";
 
     expectedHeaders.forEach((headerText) => {
