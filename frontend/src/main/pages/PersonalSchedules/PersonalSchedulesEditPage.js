@@ -37,7 +37,7 @@ export default function PersonalSchedulesEditPage({storybook=false}) {
 
     const onSuccess = (personalSchedule) => {
       toast(
-        `New personalSchedule Created - id: ${personalSchedule.id} name: ${personalSchedule.name}`,
+        `PersonalSchedule Updated - id: ${personalSchedule.id} name: ${personalSchedule.name}`,
       );
     };
 
