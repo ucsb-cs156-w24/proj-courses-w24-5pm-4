@@ -81,6 +81,7 @@ describe("CourseForm tests", () => {
         </Router>
       </QueryClientProvider>,
     );
+    
 
     expect(await screen.findByTestId("CourseForm-psId")).toBeInTheDocument();
 

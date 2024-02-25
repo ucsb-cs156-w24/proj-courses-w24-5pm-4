@@ -61,8 +61,11 @@ describe("CoursesCreatePage tests", () => {
     const courses = [
       {
         id: "17",
+        courseName:"CMPSC",
+        schduleName:"torry's schdule",
         psId: 13,
         enrollCd: "08250",
+        quarter:20221,
       },
     ];
 
@@ -81,6 +84,9 @@ describe("CoursesCreatePage tests", () => {
     ).toBeInTheDocument();
 
     const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
+    // const courseNameField = screen.getByTestId("CourseForm-courseName");
+    // const schduleNameField = screen.getByTestId("CourseForm-schduleName");
+    // const quarterField = screen.getByTestId("CourseForm-quarter");
     const psIdField = document.querySelector("#CourseForm-psId");
     const submitButton = screen.getByTestId("CourseForm-submit");
 
@@ -98,7 +104,10 @@ describe("CoursesCreatePage tests", () => {
     expect(localStorage.getItem("CourseForm-psId")).toBe("13");
     expect(axiosMock.history.post[0].params).toEqual({
       psId: "13",
+      courseName:"CMPSC",
+      schduleName:"torry's schdule",
       enrollCd: "08250",
+      quarter:20221,
     });
 
     expect(mockToast).toBeCalledWith(
