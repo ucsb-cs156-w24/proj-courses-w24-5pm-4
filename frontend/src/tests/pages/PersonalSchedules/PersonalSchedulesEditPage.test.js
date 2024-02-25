@@ -1,5 +1,5 @@
 import { fireEvent, render, waitFor, screen, getByTestId, getByLabelText } from "@testing-library/react";
-import { userEvent } from "@testing-library/user-event";
+import userEvent from "@testing-library/user-event";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { MemoryRouter } from "react-router-dom";
 import PersonalSchedulesEditPage from "main/pages/PersonalSchedules/PersonalSchedulesEditPage";
@@ -110,7 +110,7 @@ describe("tests where backend is working normally", () => {
             admin: true,
           },
           description: "My Plan for Fall",
-          quarter: "20224",
+          quarter: "20222",
           name: "Fall Courses",
         });
     });
@@ -154,12 +154,10 @@ describe("tests where backend is working normally", () => {
         expect(quarterField).toBeInTheDocument();
 
         expect(submitButton).toHaveTextContent("Update");
-
-
+        
         fireEvent.change(nameField, { target: { value: 'Fall Courses' } });
         fireEvent.change(descriptionField, { target: { value: 'My Plan for Fall' } });
-        userEvent.selectOptions(quarterField, '20224');
-        //fireEvent.change(quarterField, { target: { value: '20224' } });
+        fireEvent.change(quarterField, { target: { value: '20222' } });
 
         fireEvent.click(submitButton);
 
@@ -187,7 +185,7 @@ describe("tests where backend is working normally", () => {
           },
           name: "Fall Courses",
           description: "My Plan for Fall",
-          quarter: "20224",
+          quarter: "20222",
         })); // posted object
     });
    

@@ -39,6 +39,7 @@ export default function PersonalSchedulesEditPage({storybook=false}) {
       toast(
         `PersonalSchedule Updated - id: ${personalSchedule.id} name: ${personalSchedule.name}`,
       );
+      console.log(personalSchedule.quarter);
     };
 
     const mutation = useBackendMutation(
@@ -51,7 +52,13 @@ export default function PersonalSchedulesEditPage({storybook=false}) {
     const { isSuccess } = mutation
 
     const onSubmit = async (data) => {
-        mutation.mutate(data);
+        const quarter = {
+            quarter: localStorage["PersonalScheduleForm-quarter"],
+        };
+        console.log(quarter);
+        const dataFinal = Object.assign(data, quarter);
+        console.log(dataFinal);
+        mutation.mutate(dataFinal);
     }
 
     if (isSuccess && !storybook) {
