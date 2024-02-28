@@ -65,8 +65,8 @@ describe("CourseForm tests", () => {
       
     ).toBeInTheDocument();
     await screen.findAllByText(/Course Name is required./);
-    screen.findAllByText(/Schdule Name is required/);
-    screen.findAllByText(/Quarter is required./);
+    screen.findByText(/Schdule Name is required/);
+    screen.findByText(/Quarter is required./);
 
   });
 
