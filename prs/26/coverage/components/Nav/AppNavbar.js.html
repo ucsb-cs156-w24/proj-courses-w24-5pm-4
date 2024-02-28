@@ -232,22 +232,8 @@
 <a name='L167'></a><a href='#L167'>167</a>
 <a name='L168'></a><a href='#L168'>168</a>
 <a name='L169'></a><a href='#L169'>169</a>
-<a name='L170'></a><a href='#L170'>170</a>
-<a name='L171'></a><a href='#L171'>171</a>
-<a name='L172'></a><a href='#L172'>172</a>
-<a name='L173'></a><a href='#L173'>173</a>
-<a name='L174'></a><a href='#L174'>174</a>
-<a name='L175'></a><a href='#L175'>175</a>
-<a name='L176'></a><a href='#L176'>176</a>
-<a name='L177'></a><a href='#L177'>177</a>
-<a name='L178'></a><a href='#L178'>178</a>
-<a name='L179'></a><a href='#L179'>179</a>
-<a name='L180'></a><a href='#L180'>180</a>
-<a name='L181'></a><a href='#L181'>181</a>
-<a name='L182'></a><a href='#L182'>182</a>
-<a name='L183'></a><a href='#L183'>183</a>
-<a name='L184'></a><a href='#L184'>184</a>
-<a name='L185'></a><a href='#L185'>185</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L170'></a><a href='#L170'>170</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -415,27 +401,12 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import { hasRole } from "main/utils/currentUser";
-import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost";
-import headerImg from "../../../assets/header-logo-240.png";
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from 'react';
+import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { hasRole } from 'main/utils/currentUser';
+import AppNavbarLocalhost from 'main/components/Nav/AppNavbarLocalhost';
+import headerImg from '../../../assets/header-logo-240.png';
 &nbsp;
 export default function AppNavbar({
   currentUser,
@@ -445,17 +416,10 @@ export default function AppNavbar({
 }) {
   return (
     &lt;&gt;
-      {(currentUrl.startsWith("http://localhost:3000") ||
-        currentUrl.startsWith("http://127.0.0.1:3000")) &amp;&amp; (
+      {(currentUrl.startsWith('http://localhost:3000') || currentUrl.startsWith('http://127.0.0.1:3000')) &amp;&amp; (
         &lt;AppNavbarLocalhost url={currentUrl} /&gt;
       )}
-      &lt;Navbar
-        expand="xl"
-        variant="dark"
-        className="color-nav"
-        sticky="top"
-        data-testid="AppNavbar"
-      &gt;
+      &lt;Navbar expand="xl" variant="dark" className="color-nav" sticky="top" data-testid="AppNavbar"&gt;
         &lt;Container&gt;
           &lt;img
             data-testid="AppNavbarImage"
@@ -469,26 +433,18 @@ export default function AppNavbar({
 &nbsp;
           &lt;Navbar.Toggle /&gt;
 &nbsp;
-          &lt;&gt;
-            {/* be sure that each NavDropdown has a unique id and data-testid  */}
-          &lt;/&gt;
-&nbsp;
           &lt;Navbar.Collapse className="justify-content-between"&gt;
             &lt;Nav className="me-auto"&gt;
               {systemInfo?.springH2ConsoleEnabled &amp;&amp; (
-                &lt;&gt;
-                  &lt;Nav.Link href="/h2-console"&gt;H2Console &lt;/Nav.Link&gt;
-                &lt;/&gt;
+                &lt;Nav.Link href="/h2-console"&gt;H2Console&lt;/Nav.Link&gt;
               )}
               {systemInfo?.showSwaggerUILink &amp;&amp; (
-                &lt;&gt;
-                  &lt;Nav.Link href="/swagger-ui/index.html"&gt;Swagger&lt;/Nav.Link&gt;
-                &lt;/&gt;
+                &lt;Nav.Link href="/swagger-ui/index.html"&gt;Swagger&lt;/Nav.Link&gt;
               )}
             &lt;/Nav&gt;
 &nbsp;
             &lt;Nav className="mr-auto"&gt;
-              {hasRole(currentUser, "ROLE_USER") &amp;&amp; (
+              {hasRole(currentUser, 'ROLE_USER') &amp;&amp; (
                 &lt;NavDropdown
                   title="Personal Schedules"
                   id="appnavbar-personalschedules-dropdown"
@@ -556,7 +512,7 @@ export default function AppNavbar({
             &lt;/Nav&gt;
 &nbsp;
             &lt;Nav className="mr-auto"&gt;
-              {hasRole(currentUser, "ROLE_ADMIN") &amp;&amp; (
+              {hasRole(currentUser, 'ROLE_ADMIN') &amp;&amp; (
                 &lt;NavDropdown
                   title="Admin"
                   id="appnavbar-admin-dropdown"
@@ -586,15 +542,14 @@ export default function AppNavbar({
                   &gt;
                     Manage Jobs
                   &lt;/NavDropdown.Item&gt;
-                  {/* Add the new Developer Info link here */}
                   &lt;NavDropdown.Item
-                          href="/developer"
-                          data-testid="appnavbar-admin-developer-info"
-                        &gt;
-                          Developer Info
-                        &lt;/NavDropdown.Item&gt;
-                      &lt;/NavDropdown&gt;
-                    )}
+                    href="/developer"
+                    data-testid="appnavbar-admin-developer-info"
+                  &gt;
+                    Developer Info
+                  &lt;/NavDropdown.Item&gt;
+                &lt;/NavDropdown&gt;
+              )}
             &lt;/Nav&gt;
 &nbsp;
             &lt;Nav className="ml-auto"&gt;
@@ -622,7 +577,7 @@ export default function AppNavbar({
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Feb 28 2024 14:24:21 GMT-0800 (Pacific Standard Time)
+                at Wed Feb 28 2024 14:27:58 GMT-0800 (Pacific Standard Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
