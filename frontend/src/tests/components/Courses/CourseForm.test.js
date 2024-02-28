@@ -60,10 +60,10 @@ describe("CourseForm tests", () => {
     fireEvent.click(submitButton);
 
     expect(await screen.findByText(/Enroll Code is required./)).toBeInTheDocument();
-    screen.findByText(/Course Name is required./);
-    screen.findByText(/Schdule Name is required/);
-    screen.findByText(/Quarter is required./);
-
+    screen.getByText(/Course Name is required./);
+    screen.getByText(/Schdule Name is required/);
+    screen.getByText(/Quarter is required./);
+    
   });
   test("No Error messages on good input", async () => {
     const mockSubmitAction = jest.fn();
