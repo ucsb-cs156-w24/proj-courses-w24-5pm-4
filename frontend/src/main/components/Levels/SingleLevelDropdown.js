@@ -9,19 +9,15 @@ const SingleLevelDropdown = ({
   label = "Course Level",
 }) => {
   const localSearchLevel = localStorage.getItem(controlId);
-  if (!localSearchLevel) {
-    localStorage.setItem(controlId, "U");
-  }
   const [levelState, setLevelState] = useState(
     // Stryker disable next-line all : not sure how to test/mock local storage
     localSearchLevel || "U",
   );
 
   const handleLeveltoChange = (event) => {
-    const selectedLevel = event.target.value;
-    localStorage.setItem(controlId, selectedLevel);
-    setLevelState(selectedLevel);
-    setLevel(selectedLevel);
+    localStorage.setItem(controlId, event.target.value);
+    setLevelState(event.target.value);
+    setLevel(event.target.value);
     if (onChange != null) {
       onChange(event);
     }
