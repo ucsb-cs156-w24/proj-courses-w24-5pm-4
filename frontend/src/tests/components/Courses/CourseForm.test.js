@@ -59,11 +59,12 @@ describe("CourseForm tests", () => {
 
     fireEvent.click(submitButton);
 
-    expect(await screen.findByText(/Enroll Code is required./)).toBeInTheDocument();
+    expect(
+      await screen.findByText(/Enroll Code is required./),
+    ).toBeInTheDocument();
     screen.getByText(/Course Name is required./);
     screen.getByText(/Schdule Name is required/);
     screen.getByText(/Quarter is required./);
-    
   });
   test("No Error messages on good input", async () => {
     const mockSubmitAction = jest.fn();
@@ -76,7 +77,6 @@ describe("CourseForm tests", () => {
         </Router>
       </QueryClientProvider>,
     );
-    
 
     expect(await screen.findByTestId("CourseForm-psId")).toBeInTheDocument();
 
@@ -137,13 +137,14 @@ test("Correct Error messsages on bad input", async () => {
   const quarterField = screen.getByTestId("CourseForm-quarter");
   const submitButton = screen.getByTestId("CourseForm-submit");
 
-  fireEvent.change(quarterField, { target: { value: 'bad-input' } });
- 
+  fireEvent.change(quarterField, { target: { value: "bad-input" } });
+
   fireEvent.click(submitButton);
 
-  await screen.findByText(/Quarter must be in the format YYYYQ, e.g. 20224 for Fall 2022/);
+  await screen.findByText(
+    /Quarter must be in the format YYYYQ, e.g. 20224 for Fall 2022/,
+  );
 });
-
 
 // test("that the correct validations are performed", async () => {
 //   const queryClient = new QueryClient();
@@ -159,27 +160,27 @@ test("Correct Error messsages on bad input", async () => {
 //   const submitButton = screen.getByText(/Create/);
 //   fireEvent.click(submitButton);
 
-  // expect(await screen.findByTestId("CourseForm-submit")).toBeInTheDocument();
-  // const submitButton = screen.getByTestId("CourseForm-submit");
+// expect(await screen.findByTestId("CourseForm-submit")).toBeInTheDocument();
+// const submitButton = screen.getByTestId("CourseForm-submit");
 
-  // fireEvent.click(submitButton);
+// fireEvent.click(submitButton);
 
-  // expect(
-    //   // await screen.findByText(/Course Name is required./),
-    //   await screen.findByText(/Enroll Code is required./),
-    //   // screen.getByText(/Schdule Name is required/),
-    //   // screen.getByText(/Quarter is required./),
-    // ).toBeInTheDocument();
-    // await screen.getByText(/Course Name is required./).toBeInTheDocument();
+// expect(
+//   // await screen.findByText(/Course Name is required./),
+//   await screen.findByText(/Enroll Code is required./),
+//   // screen.getByText(/Schdule Name is required/),
+//   // screen.getByText(/Quarter is required./),
+// ).toBeInTheDocument();
+// await screen.getByText(/Course Name is required./).toBeInTheDocument();
 
-  // await screen.findByText(/Course Name is required./);
-  // expect(screen.getByText(/Enroll Code is required./)).toBeInTheDocument();
+// await screen.findByText(/Course Name is required./);
+// expect(screen.getByText(/Enroll Code is required./)).toBeInTheDocument();
 
-  // const nameInput = screen.getByTestId(`${testId}-name`);
-  // fireEvent.change(nameInput, { target: { value: "a".repeat(31) } });
-  // fireEvent.click(submitButton);
+// const nameInput = screen.getByTestId(`${testId}-name`);
+// fireEvent.change(nameInput, { target: { value: "a".repeat(31) } });
+// fireEvent.click(submitButton);
 
-  // await waitFor(() => {
-  //     expect(screen.getByText(/Max length 30 characters/)).toBeInTheDocument();
-  // });
+// await waitFor(() => {
+//     expect(screen.getByText(/Max length 30 characters/)).toBeInTheDocument();
+// });
 // });

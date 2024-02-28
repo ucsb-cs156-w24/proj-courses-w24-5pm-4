@@ -61,8 +61,8 @@ describe("CoursesCreatePage tests", () => {
     const courses = [
       {
         id: "17",
-        courseName:"CMPSC",
-        schduleName:"torry's schdule",
+        courseName: "CMPSC",
+        schduleName: "torry's schdule",
         psId: 13,
         enrollCd: "08250",
         quarter: 20221,
@@ -94,7 +94,9 @@ describe("CoursesCreatePage tests", () => {
     localStorage.setItem("CourseForm-psId", "13");
     fireEvent.change(enrollCdField, { target: { value: "08250" } });
     fireEvent.change(courseNameField, { target: { value: "CMPSC" } });
-    fireEvent.change(schduleNameField, { target: { value: "torry's schdule" } });
+    fireEvent.change(schduleNameField, {
+      target: { value: "torry's schdule" },
+    });
     fireEvent.change(quarterField, { target: { value: "20221" } });
     expect(submitButton).toBeInTheDocument();
 
@@ -107,8 +109,8 @@ describe("CoursesCreatePage tests", () => {
     expect(localStorage.getItem("CourseForm-psId")).toBe("13");
     expect(axiosMock.history.post[0].params).toEqual({
       psId: "13",
-      courseName:"CMPSC",
-      schduleName:"torry's schdule",
+      courseName: "CMPSC",
+      schduleName: "torry's schdule",
       enrollCd: "08250",
       quarter: "20221",
     });
@@ -142,7 +144,9 @@ describe("CoursesCreatePage tests", () => {
     fireEvent.change(psIdField, { target: { value: 13 } });
     fireEvent.change(enrollCdField, { target: { value: "99881" } });
     fireEvent.change(courseNameField, { target: { value: "CMPSC" } });
-    fireEvent.change(schduleNameField, { target: { value: "torry's schdule" } });
+    fireEvent.change(schduleNameField, {
+      target: { value: "torry's schdule" },
+    });
     fireEvent.change(quarterField, { target: { value: "20221" } });
 
     expect(submitButton).toBeInTheDocument();
@@ -166,7 +170,6 @@ describe("CoursesCreatePage tests", () => {
         quarter: "W08",
       },
     ]);
-
 
     render(
       <QueryClientProvider client={queryClient}>

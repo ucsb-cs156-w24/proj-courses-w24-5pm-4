@@ -7,7 +7,7 @@ import { useBackend } from "main/utils/useBackend";
 
 function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
   // Stryker disable all
-  const yyyyq_regex = /((19)|(20))\d{2}[1-4]/i; 
+  const yyyyq_regex = /((19)|(20))\d{2}[1-4]/i;
   const {
     register,
     formState: { errors },
@@ -76,7 +76,7 @@ function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
         <Form.Control.Feedback type="invalid">
           {errors.courseName?.message}
         </Form.Control.Feedback>
-      </Form.Group> 
+      </Form.Group>
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="enrollCd">Enrollment Code</Form.Label>
@@ -117,21 +117,22 @@ function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
         <Form.Control.Feedback type="invalid">
           {errors.courseName?.message}
         </Form.Control.Feedback>
-      </Form.Group> 
+      </Form.Group>
 
-      <Form.Group className="mb-3" >
-          <Form.Label htmlFor="quarter">Quarter</Form.Label>
-          <Form.Control
-              data-testid="CourseForm-quarter"
-              id="quarter"
-              type="text"
-              isInvalid={Boolean(errors.quarter)}
-              {...register("quarter", { required: true, pattern: yyyyq_regex })}
-          />
-          <Form.Control.Feedback type="invalid">
-              {errors.quarter && 'Quarter is required.'}
-              {errors.quarter?.type === 'pattern' && 'Quarter must be in the format YYYYQ, e.g. 20224 for Fall 2022'}
-          </Form.Control.Feedback>
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="quarter">Quarter</Form.Label>
+        <Form.Control
+          data-testid="CourseForm-quarter"
+          id="quarter"
+          type="text"
+          isInvalid={Boolean(errors.quarter)}
+          {...register("quarter", { required: true, pattern: yyyyq_regex })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.quarter && "Quarter is required."}
+          {errors.quarter?.type === "pattern" &&
+            "Quarter must be in the format YYYYQ, e.g. 20224 for Fall 2022"}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Button type="submit" data-testid="CourseForm-submit">
