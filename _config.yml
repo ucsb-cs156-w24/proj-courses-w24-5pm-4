@@ -1,3 +1,4 @@
+
 title: Documentation
 description: >- # this means to ignore newlines until "baseurl:"
   When reviewing a PR for this repo, you can see what the documentation,
@@ -17,7 +18,9 @@ collections:
     permalink: /branches/:path/
 
 repo_name: "TBD"
+
+
 repo: ucsb-cs156-w24/proj-courses-w24-5pm-4
 owner: ucsb-cs156-w24
 repo_name: proj-courses-w24-5pm-4
-pull_requests: [{"author":{"id":"U_kgDOBXuxxw","is_bot":false,"login":"Cory-Zhao","name":"Cory Zhao"},"headRefName":"CZ-PersonalSchedules-quarter","number":23,"title":"BUG: Personal Schedules Update not updating the Quarter field","url":"https://github.com/ucsb-cs156-w24/proj-courses-w24-5pm-4/pull/23"},{"author":{"id":"U_kgDOB7tbUw","is_bot":false,"login":"Torry051","name":"Rui Tong"},"headRefName":"rt-PSCourseDescription","number":19,"title":"Add more descriptive for Course Page","url":"https://github.com/ucsb-cs156-w24/proj-courses-w24-5pm-4/pull/19"},{"author":{"id":"U_kgDOBXuxxw","is_bot":false,"login":"Cory-Zhao","name":"Cory Zhao"},"headRefName":"CZ-PersonalSchedules-edit","number":18,"title":"FEATURE: Add edit page for personal schedules","url":"https://github.com/ucsb-cs156-w24/proj-courses-w24-5pm-4/pull/18"}]
+pull_requests: [{"author":{"id":"MDQ6VXNlcjMzMDQxMTU0","is_bot":false,"login":"ColeFoster08","name":"Cole Foster"},"headRefName":"Cole-Proj-CourseSearchBug","number":24,"title":"BUG: Can't immediately search for graduate courses","url":"https://github.com/ucsb-cs156-w24/proj-courses-w24-5pm-4/pull/24"},{"author":{"id":"U_kgDOBXuxxw","is_bot":false,"login":"Cory-Zhao","name":"Cory Zhao"},"headRefName":"CZ-PersonalSchedules-quarter","number":23,"title":"BUG: Personal Schedules Update not updating the Quarter field","url":"https://github.com/ucsb-cs156-w24/proj-courses-w24-5pm-4/pull/23"},{"author":{"id":"U_kgDOB7tbUw","is_bot":false,"login":"Torry051","name":"Rui Tong"},"headRefName":"rt-PSCourseDescription","number":19,"title":"Add more descriptive for Course Page","url":"https://github.com/ucsb-cs156-w24/proj-courses-w24-5pm-4/pull/19"},{"author":{"id":"U_kgDOBXuxxw","is_bot":false,"login":"Cory-Zhao","name":"Cory Zhao"},"headRefName":"CZ-PersonalSchedules-edit","number":18,"title":"FEATURE: Add edit page for personal schedules","url":"https://github.com/ucsb-cs156-w24/proj-courses-w24-5pm-4/pull/18"}]
