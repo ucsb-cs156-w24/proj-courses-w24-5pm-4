@@ -59,17 +59,12 @@ describe("CourseForm tests", () => {
 
     fireEvent.click(submitButton);
 
-    expect(
-      // await screen.findByText(/Course Name is required./),
-      await screen.findByText(/Enroll Code is required./),
-      
-    ).toBeInTheDocument();
-    await screen.findAllByText(/Course Name is required./);
+    expect(await screen.findByText(/Enroll Code is required./)).toBeInTheDocument();
+    screen.findByText(/Course Name is required./);
     screen.findByText(/Schdule Name is required/);
     screen.findByText(/Quarter is required./);
 
   });
-
   test("No Error messages on good input", async () => {
     const mockSubmitAction = jest.fn();
     const queryClient = new QueryClient();
