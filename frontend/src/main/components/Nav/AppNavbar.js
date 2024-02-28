@@ -1,9 +1,9 @@
-import React from 'react';
-import { Button, Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { hasRole } from 'main/utils/currentUser';
-import AppNavbarLocalhost from 'main/components/Nav/AppNavbarLocalhost';
-import headerImg from '../../../assets/header-logo-240.png';
+import React from "react";
+import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { hasRole } from "main/utils/currentUser";
+import AppNavbarLocalhost from "main/components/Nav/AppNavbarLocalhost";
+import headerImg from "../../../assets/header-logo-240.png";
 
 export default function AppNavbar({
   currentUser,
@@ -13,10 +13,17 @@ export default function AppNavbar({
 }) {
   return (
     <>
-      {(currentUrl.startsWith('http://localhost:3000') || currentUrl.startsWith('http://127.0.0.1:3000')) && (
+      {(currentUrl.startsWith("http://localhost:3000") ||
+        currentUrl.startsWith("http://127.0.0.1:3000")) && (
         <AppNavbarLocalhost url={currentUrl} />
       )}
-      <Navbar expand="xl" variant="dark" className="color-nav" sticky="top" data-testid="AppNavbar">
+      <Navbar
+        expand="xl"
+        variant="dark"
+        className="color-nav"
+        sticky="top"
+        data-testid="AppNavbar"
+      >
         <Container>
           <img
             data-testid="AppNavbarImage"
@@ -41,7 +48,7 @@ export default function AppNavbar({
             </Nav>
 
             <Nav className="mr-auto">
-              {hasRole(currentUser, 'ROLE_USER') && (
+              {hasRole(currentUser, "ROLE_USER") && (
                 <NavDropdown
                   title="Personal Schedules"
                   id="appnavbar-personalschedules-dropdown"
@@ -109,7 +116,7 @@ export default function AppNavbar({
             </Nav>
 
             <Nav className="mr-auto">
-              {hasRole(currentUser, 'ROLE_ADMIN') && (
+              {hasRole(currentUser, "ROLE_ADMIN") && (
                 <NavDropdown
                   title="Admin"
                   id="appnavbar-admin-dropdown"
