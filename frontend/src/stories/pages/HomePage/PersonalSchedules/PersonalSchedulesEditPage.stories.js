@@ -7,6 +7,6 @@ export default {
   component: PersonalSchedulesEditPage,
 };
 
-const Template = () => <PersonalSchedulesEditPage storybook={true}/>;
+const Template = () => <PersonalSchedulesEditPage storybook={true} />;
 
 export const Default = Template.bind({});
