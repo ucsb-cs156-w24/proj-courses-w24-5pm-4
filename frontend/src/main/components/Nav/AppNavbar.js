@@ -37,6 +37,10 @@ export default function AppNavbar({
 
           <Navbar.Toggle />
 
+          <>
+            {/* be sure that each NavDropdown has a unique id and data-testid  */}
+          </>
+          
           <Navbar.Collapse className="justify-content-between">
             <Nav className="me-auto">
               {systemInfo?.springH2ConsoleEnabled && (
