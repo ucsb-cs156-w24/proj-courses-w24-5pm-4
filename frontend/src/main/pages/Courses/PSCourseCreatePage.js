@@ -9,8 +9,11 @@ export default function CoursesCreatePage() {
     url: "/api/courses/post",
     method: "POST",
     params: {
+      courseName: course.courseName,
       enrollCd: course.enrollCd,
       psId: course.psId,
+      schduleName: course.schduleName,
+      quarter: course.quarter,
     },
   });
 
