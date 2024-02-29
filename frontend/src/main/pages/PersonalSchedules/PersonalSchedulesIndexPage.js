@@ -21,7 +21,7 @@ export default function PersonalSchedulesIndexPage() {
   );
 
   const createButton = () => {
-    if (hasRole(currentUser, "ROLE_ADMIN")) {
+    // if (hasRole(currentUser, "ROLE_ADMIN")) {
         return (
             <Button
                 variant="primary"
@@ -31,7 +31,7 @@ export default function PersonalSchedulesIndexPage() {
                 Add Personal Schedule
             </Button>
         )
-    } 
+    // } 
   }
 
   return (
