@@ -47,6 +47,27 @@ describe("PersonalSchedulesIndexPage tests", () => {
       .reply(200, systemInfoFixtures.showingNeither);
   };
 
+  test("Renders with Create Button for admin user", async () => {
+    setupAdminUser();
+    const queryClient = new QueryClient();
+    axiosMock.onGet("/api/personalschedules/all").reply(200, []);
+
+    render(
+        <QueryClientProvider client={queryClient}>
+            <MemoryRouter>
+                <PersonalSchedulesIndexPage />
+            </MemoryRouter>
+        </QueryClientProvider>
+    );
+
+    await waitFor(() => {
+        expect(screen.getByText(/Add Personal Schedule/)).toBeInTheDocument();
+    });
+    const button = screen.getByText(/Add Personal Schedule/);
+    expect(button).toHaveAttribute("href", "/personalschedules/create");
+    expect(button).toHaveAttribute("style", "float: right;");
+});
+
   test("renders without crashing for regular user", () => {
     setupUserOnly();
     const queryClient = new QueryClient();

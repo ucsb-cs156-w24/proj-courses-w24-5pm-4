@@ -61,12 +61,12 @@ export default function AppNavbar({
                   id="appnavbar-personalschedules-dropdown"
                   data-testid="appnavbar-personalschedules-dropdown"
                 >
-                  <NavDropdown.Item
+                  {/* <NavDropdown.Item
                     href="/personalschedules/create"
                     data-testid="appnavbar-personalschedules-create"
                   >
                     Add Schedule
-                  </NavDropdown.Item>
+                  </NavDropdown.Item> */}
                   <NavDropdown.Item
                     href="/personalschedules/list"
                     data-testid="appnavbar-personalschedules-list"

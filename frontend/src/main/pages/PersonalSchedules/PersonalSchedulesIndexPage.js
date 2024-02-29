@@ -3,7 +3,8 @@ import { useBackend } from "main/utils/useBackend";
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import PersonalSchedulesTable from "main/components/PersonalSchedules/PersonalSchedulesTable";
-import { useCurrentUser } from "main/utils/currentUser";
+import { useCurrentUser,hasRole } from "main/utils/currentUser";
+import { Button } from 'react-bootstrap';
 
 export default function PersonalSchedulesIndexPage() {
   const currentUser = useCurrentUser();
@@ -19,6 +20,20 @@ export default function PersonalSchedulesIndexPage() {
     [],
   );
 
+  const createButton = () => {
+    if (hasRole(currentUser, "ROLE_ADMIN")) {
+        return (
+            <Button
+                variant="primary"
+                href="/personalschedules/create"
+                style={{ float: "right" }}
+            >
+                Add Personal Schedule
+            </Button>
+        )
+    } 
+  }
+
   return (
     <BasicLayout>
       <div className="pt-2">
@@ -27,6 +42,7 @@ export default function PersonalSchedulesIndexPage() {
           personalSchedules={personalSchedules}
           currentUser={currentUser}
         />
+        {createButton()}
       </div>
     </BasicLayout>
   );
