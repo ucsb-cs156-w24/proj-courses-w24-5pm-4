@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { hasRole } from "main/utils/currentUser";
@@ -40,14 +39,18 @@ export default function AppNavbar({
           <>
             {/* be sure that each NavDropdown has a unique id and data-testid  */}
           </>
-          
+
           <Navbar.Collapse className="justify-content-between">
             <Nav className="me-auto">
               {systemInfo?.springH2ConsoleEnabled && (
-                <Nav.Link href="/h2-console">H2Console</Nav.Link>
+                <>
+                  <Nav.Link href="/h2-console">H2Console </Nav.Link>
+                </>
               )}
               {systemInfo?.showSwaggerUILink && (
-                <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
+                <>
+                  <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
+                </>
               )}
             </Nav>
 
