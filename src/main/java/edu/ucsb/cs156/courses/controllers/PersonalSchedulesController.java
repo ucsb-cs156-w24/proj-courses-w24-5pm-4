@@ -120,13 +120,7 @@ public class PersonalSchedulesController extends ApiController {
             .orElseThrow(() -> new EntityNotFoundException(PersonalSchedule.class, id));
 
     Iterable<PSCourse> courses = coursesRepository.findAllByPsId(id);
-    Iterator<PSCourse> iterator = courses.iterator();
-
-    while (iterator.hasNext()) {
-        PSCourse course = iterator.next();
-        coursesRepository.delete(course);
-        iterator.remove();
-    }
+    courses.forEach(course -> coursesRepository.delete(course));
 
     personalscheduleRepository.delete(personalschedule);
 
