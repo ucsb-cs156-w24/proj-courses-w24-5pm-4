@@ -48,7 +48,7 @@ describe("BasicCourseSearchForm tests", () => {
         <MemoryRouter>
           <BasicCourseSearchForm />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
   });
 
@@ -58,7 +58,7 @@ describe("BasicCourseSearchForm tests", () => {
         <MemoryRouter>
           <BasicCourseSearchForm />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
     const selectQuarter = screen.getByLabelText("Quarter");
     userEvent.selectOptions(selectQuarter, "20204");
@@ -73,12 +73,12 @@ describe("BasicCourseSearchForm tests", () => {
         <MemoryRouter>
           <BasicCourseSearchForm />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     const expectedKey = "BasicSearch.Subject-option-MATH";
     await waitFor(() =>
-      expect(screen.getByTestId(expectedKey).toBeInTheDocument)
+      expect(screen.getByTestId(expectedKey).toBeInTheDocument),
     );
 
     const selectSubject = screen.getByLabelText("Subject Area");
@@ -93,7 +93,7 @@ describe("BasicCourseSearchForm tests", () => {
         <MemoryRouter>
           <BasicCourseSearchForm />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
     const selectLevel = screen.getByLabelText("Course Level");
     userEvent.selectOptions(selectLevel, "G");
@@ -115,7 +115,7 @@ describe("BasicCourseSearchForm tests", () => {
         <MemoryRouter>
           <BasicCourseSearchForm fetchJSON={fetchJSONSpy} />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     const expectedFields = {
@@ -126,7 +126,7 @@ describe("BasicCourseSearchForm tests", () => {
 
     const expectedKey = "BasicSearch.Subject-option-ANTH";
     await waitFor(() =>
-      expect(screen.getByTestId(expectedKey).toBeInTheDocument)
+      expect(screen.getByTestId(expectedKey).toBeInTheDocument),
     );
 
     const selectQuarter = screen.getByLabelText("Quarter");
@@ -143,7 +143,7 @@ describe("BasicCourseSearchForm tests", () => {
 
     expect(fetchJSONSpy).toHaveBeenCalledWith(
       expect.any(Object),
-      expectedFields
+      expectedFields,
     );
   });
 
@@ -164,12 +164,12 @@ describe("BasicCourseSearchForm tests", () => {
         <MemoryRouter>
           <BasicCourseSearchForm fetchJSON={fetchJSONSpy} />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     const expectedKey = "BasicSearch.Subject-option-MATH";
     await waitFor(() =>
-      expect(screen.getByTestId(expectedKey).toBeInTheDocument)
+      expect(screen.getByTestId(expectedKey).toBeInTheDocument),
     );
 
     const selectQuarter = screen.getByLabelText("Quarter");
@@ -195,15 +195,15 @@ describe("BasicCourseSearchForm tests", () => {
         <MemoryRouter>
           <BasicCourseSearchForm />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     // Make sure the first and last options
     expect(
-      await screen.findByTestId(/BasicSearch.Quarter-option-0/)
+      await screen.findByTestId(/BasicSearch.Quarter-option-0/),
     ).toHaveValue("20211");
     expect(
-      await screen.findByTestId(/BasicSearch.Quarter-option-3/)
+      await screen.findByTestId(/BasicSearch.Quarter-option-3/),
     ).toHaveValue("20214");
   });
 
@@ -222,7 +222,7 @@ describe("BasicCourseSearchForm tests", () => {
         <MemoryRouter>
           <BasicCourseSearchForm fetchJSON={fetchJSONSpy} />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     const expectedKey_Quarter = "BasicSearch.Quarter-option-0";
