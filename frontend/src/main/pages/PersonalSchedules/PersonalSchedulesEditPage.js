@@ -1,6 +1,7 @@
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import { useParams } from "react-router-dom";
 import PersonalScheduleForm from "main/components/PersonalSchedules/PersonalScheduleForm";
+import PersonalSectionsTable from "main/components/PersonalSections/PersonalSectionsTable";
 import { Navigate } from "react-router-dom";
 import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
@@ -19,6 +20,18 @@ export default function PersonalSchedulesEditPage({ storybook = false }) {
       // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
       method: "GET",
       url: `/api/personalschedules`,
+      params: {
+        id,
+      },
+    },
+  );
+
+  const { data: personalSection } = useBackend(
+    // Stryker disable all : hard to test for query caching
+    [`/api/personalSections/all?psId=${id}`],
+    {
+      method: "GET",
+      url: `/api/personalSections/all?psId=${id}`,
       params: {
         id,
       },
@@ -80,6 +93,12 @@ export default function PersonalSchedulesEditPage({ storybook = false }) {
             initialPersonalSchedule={personalSchedule}
           />
         )}
+        <p>
+          <h2>Sections in Personal Schedule</h2>
+          {personalSection && (
+            <PersonalSectionsTable personalSections={personalSection} />
+          )}
+        </p>
       </div>
     </BasicLayout>
   );
