@@ -7,10 +7,10 @@ import edu.ucsb.cs156.courses.errors.EntityNotFoundException;
 import edu.ucsb.cs156.courses.models.CurrentUser;
 import edu.ucsb.cs156.courses.repositories.PersonalScheduleRepository;
 import edu.ucsb.cs156.courses.repositories.PSCourseRepository;
-import edu.ucsb.cs156.courses.services.UCSBCurriculumService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import java.util.Iterator;
 import java.util.Optional;
 import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +33,6 @@ public class PersonalSchedulesController extends ApiController {
 
   @Autowired PersonalScheduleRepository personalscheduleRepository;
   @Autowired PSCourseRepository coursesRepository;
-  @Autowired UCSBCurriculumService ucsbCurriculumService;
 
   @Operation(summary = "List all personal schedules")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -119,13 +118,16 @@ public class PersonalSchedulesController extends ApiController {
         personalscheduleRepository
             .findByIdAndUser(id, currentUser)
             .orElseThrow(() -> new EntityNotFoundException(PersonalSchedule.class, id));
-    
-    PSCourse psCourse =
-        coursesRepository
-            .findByPsId(id)
-            .orElseThrow(() -> new EntityNotFoundException(PSCourse.class, id));
 
-    coursesRepository.delete(psCourse);
+    Iterable<PSCourse> courses = coursesRepository.findAllByPsId(id);
+    Iterator<PSCourse> iterator = courses.iterator();
+
+    while (iterator.hasNext()) {
+        PSCourse course = iterator.next();
+        coursesRepository.delete(course);
+        iterator.remove();
+    }
+
     personalscheduleRepository.delete(personalschedule);
 
     return genericMessage("PersonalSchedule with id %s deleted".formatted(id));
