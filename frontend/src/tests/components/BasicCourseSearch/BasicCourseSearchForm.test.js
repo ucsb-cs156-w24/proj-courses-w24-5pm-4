@@ -207,7 +207,7 @@ describe("BasicCourseSearchForm tests", () => {
     ).toHaveValue("20214");
   });
 
-  test("when I click submit, there is a Quarter, Subject, and CourseLeve feild by default", async () => {
+    test("when I click submit, there is a Quarter, Subject, and CourseLeve feild by default", async () => {
     axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
     const sampleReturnValue = {
       sampleKey: "sampleValue",
@@ -226,10 +226,10 @@ describe("BasicCourseSearchForm tests", () => {
     );
 
     const expectedKey_Quarter = "BasicSearch.Quarter-option-0";
-    expect(screen.getByTestId(expectedKey_Quarter)).toBeInTheDocument;
+    expect(screen.getByTestId(expectedKey_Quarter)).toBeInTheDocument();
     const expectedKey_Subject = "BasicSearch.Subject-option-ANTH";
-    expect(screen.getByTestId(expectedKey_Subject)).toBeInTheDocument;
+    expect(screen.getByTestId(expectedKey_Subject)).toBeInTheDocument();
     const expectedKey_CourseLevel = "BasicSearch.CourseLevel-option-0";
-    expect(screen.getByTestId(expectedKey_CourseLevel)).toBeInTheDocument;
+    expect(screen.getByTestId(expectedKey_CourseLevel)).toBeInTheDocument();
   });
 });
