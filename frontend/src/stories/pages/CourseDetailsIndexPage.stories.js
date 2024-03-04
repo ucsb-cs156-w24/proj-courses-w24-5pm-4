@@ -11,13 +11,6 @@ export default {
   },
 };
 
-const Template = (args) => <CourseDetailsIndexPage {...args} />;
+const Template = () => <CourseDetailsIndexPage />;
 
 export const Default = Template.bind({});
-Default.args = {
-  moreDetails: {
-    courseId: "CS101",
-    courseDescription: "This is a sample course description.",
-    // Add other relevant data for moreDetails as needed
-  },
-};
