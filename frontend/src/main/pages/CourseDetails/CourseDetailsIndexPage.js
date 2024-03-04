@@ -26,21 +26,16 @@ export default function CourseDetailsIndexPage() {
   );
 
   return (
-  <BasicLayout>
-    <div className="pt-2">
-      {moreDetails && moreDetails.courseId && (
-        <h5>
-          Course Details for {moreDetails.courseId} {yyyyqToQyy(qtr)}!
-        </h5>
-      )}
+    <BasicLayout>
+      <div className="pt-2">
+        {moreDetails && moreDetails.courseId && (
+          <h5>
+            Course Details for {moreDetails.courseId} {yyyyqToQyy(qtr)}
+          </h5>
+        )}
 
-      {moreDetails && <CourseDetailsTable details={[moreDetails]} />}
-    </div>
-    <div className="pt-2">
-      <h5>
-        Course Description
-      </h5>
-    </div>
-  </BasicLayout>
+        {moreDetails && <CourseDetailsTable details={[moreDetails]} />}
+      </div>
+    </BasicLayout>
   );
 }
