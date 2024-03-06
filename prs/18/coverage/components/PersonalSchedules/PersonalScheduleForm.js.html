@@ -176,7 +176,8 @@
 <a name='L111'></a><a href='#L111'>111</a>
 <a name='L112'></a><a href='#L112'>112</a>
 <a name='L113'></a><a href='#L113'>113</a>
-<a name='L114'></a><a href='#L114'>114</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L114'></a><a href='#L114'>114</a>
+<a name='L115'></a><a href='#L115'>115</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -204,7 +205,6 @@
 <span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-yes">66x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -212,9 +212,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">66x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -289,6 +290,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -299,117 +301,118 @@ import { quarterRange } from "main/utils/quarterUtilities";
 import { useSystemInfo } from "main/utils/systemInfo";
 &nbsp;
 function PersonalScheduleForm({
- initialPersonalSchedule,
- submitAction,
- buttonLabel = "Create",
+  initialPersonalSchedule,
+  submitAction,
+  buttonLabel = "Create",
 }) {
- const { data: systemInfo } = useSystemInfo();
- // Stryker disable OptionalChaining
- const startQtr = systemInfo?.startQtrYYYYQ || "20211";
- const endQtr = systemInfo?.endQtrYYYYQ || "20244";
- // Stryker enable OptionalChaining
- const quarters = quarterRange(startQtr, endQtr);
- // Stryker disable all
- const {
-   register,
-   formState: { errors },
-   handleSubmit,
- } = useForm({ defaultValues: initialPersonalSchedule || {} });
- // Stryker restore all
+  const { data: systemInfo } = useSystemInfo();
+  // Stryker disable OptionalChaining
+  const startQtr = systemInfo?.startQtrYYYYQ || "20211";
+  const endQtr = systemInfo?.endQtrYYYYQ || "20244";
+  // Stryker enable OptionalChaining
+  const quarters = quarterRange(startQtr, endQtr);
+  // Stryker disable all
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({ defaultValues: initialPersonalSchedule || {} });
+  // Stryker restore all
 &nbsp;
+  const navigate = useNavigate();
+  const [quarter, setQuarter] = useState({
+    yyyyq: initialPersonalSchedule?.quarter,
+    qyy:
+      initialPersonalSchedule?.name.substring(0, 1) +
+      initialPersonalSchedule?.name.substring(
+        initialPersonalSchedule?.name.length - 2,
+        initialPersonalSchedule?.name.length,
+      ),
+  });
+  return (
+    &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
+      {initialPersonalSchedule &amp;&amp; (
+        &lt;Form.Group className="mb-3"&gt;
+          &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
+          &lt;Form.Control
+            data-testid="PersonalScheduleForm-id"
+            id="id"
+            type="text"
+            {...register("id")}
+            value={initialPersonalSchedule.id}
+            disabled
+          /&gt;
+        &lt;/Form.Group&gt;
+      )}
 &nbsp;
- const navigate = useNavigate();
- const [quarter, setQuarter] = useState(
-   {
-     yyyyq: initialPersonalSchedule?.quarter,
-     qyy: initialPersonalSchedule?.name.substring(0,1) + initialPersonalSchedule?.name.substring(initialPersonalSchedule?.name.length - 2,initialPersonalSchedule?.name.length)
-   }
- );
- return (
-   &lt;Form onSubmit={handleSubmit(submitAction)}&gt;
-     {initialPersonalSchedule &amp;&amp; (
-       &lt;Form.Group className="mb-3"&gt;
-         &lt;Form.Label htmlFor="id"&gt;Id&lt;/Form.Label&gt;
-         &lt;Form.Control
-           data-testid="PersonalScheduleForm-id"
-           id="id"
-           type="text"
-           {...register("id")}
-           value={initialPersonalSchedule.id}
-           disabled
-         /&gt;
-       &lt;/Form.Group&gt;
-     )}
+      &lt;Form.Group className="mb-3"&gt;
+        &lt;Form.Label htmlFor="name"&gt;Name&lt;/Form.Label&gt;
+        &lt;Form.Control
+          data-testid="PersonalScheduleForm-name"
+          id="name"
+          type="text"
+          isInvalid={Boolean(errors.name)}
+          {...register("name", {
+            required: "Name is required.",
+            maxLength: {
+              value: 15,
+              message: "Max length 15 characters",
+            },
+          })}
+        /&gt;
+        &lt;Form.Control.Feedback type="invalid"&gt;
+          {errors.name?.message}
+        &lt;/Form.Control.Feedback&gt;
+      &lt;/Form.Group&gt;
 &nbsp;
+      &lt;Form.Group className="mb-3"&gt;
+        &lt;Form.Label htmlFor="description"&gt;Description&lt;/Form.Label&gt;
+        &lt;Form.Control
+          data-testid="PersonalScheduleForm-description"
+          id="description"
+          type="text"
+          isInvalid={Boolean(errors.description)}
+          {...register("description", {
+            required: "Description is required.",
+          })}
+        /&gt;
+        &lt;Form.Control.Feedback type="invalid"&gt;
+          {errors.description?.message}
+        &lt;/Form.Control.Feedback&gt;
+      &lt;/Form.Group&gt;
+      &lt;Form.Group className="mb-3" data-testid="PersonalScheduleForm-quarter"&gt;
+        &lt;SingleQuarterDropdown
+          quarter={quarter}
+          setQuarter={setQuarter}
+          controlId={"PersonalScheduleForm-quarter"}
+          label={"Quarter"}
+          quarters={quarters}
+        /&gt;
+      &lt;/Form.Group&gt;
 &nbsp;
-     &lt;Form.Group className="mb-3"&gt;
-       &lt;Form.Label htmlFor="name"&gt;Name&lt;/Form.Label&gt;
-       &lt;Form.Control
-         data-testid="PersonalScheduleForm-name"
-         id="name"
-         type="text"
-         isInvalid={Boolean(errors.name)}
-         {...register("name", {
-           required: "Name is required.",
-           maxLength: {
-             value: 15,
-             message: "Max length 15 characters",
-           },
-         })}
-       /&gt;
-       &lt;Form.Control.Feedback type="invalid"&gt;
-         {errors.name?.message}
-       &lt;/Form.Control.Feedback&gt;
-     &lt;/Form.Group&gt;
-&nbsp;
-&nbsp;
-     &lt;Form.Group className="mb-3"&gt;
-       &lt;Form.Label htmlFor="description"&gt;Description&lt;/Form.Label&gt;
-       &lt;Form.Control
-         data-testid="PersonalScheduleForm-description"
-         id="description"
-         type="text"
-         isInvalid={Boolean(errors.description)}
-         {...register("description", {
-           required: "Description is required.",
-         })}
-       /&gt;
-       &lt;Form.Control.Feedback type="invalid"&gt;
-         {errors.description?.message}
-       &lt;/Form.Control.Feedback&gt;
-     &lt;/Form.Group&gt;
-     &lt;Form.Group className="mb-3" data-testid="PersonalScheduleForm-quarter"&gt;
-       &lt;SingleQuarterDropdown
-         quarter={quarter}
-         setQuarter={setQuarter}
-         controlId={"PersonalScheduleForm-quarter"}
-         label={"Quarter"}
-         quarters={quarters}
-       /&gt;
-     &lt;/Form.Group&gt;
-&nbsp;
-     &lt;Button type="submit" data-testid="PersonalScheduleForm-submit"&gt;
-       {buttonLabel}
-     &lt;/Button&gt;
-     &lt;Button
-       variant="Secondary"
-       onClick={() =&gt; navigate(-1)}
-       data-testid="PersonalScheduleForm-cancel"
-     &gt;
-       Cancel
-     &lt;/Button&gt;
-   &lt;/Form&gt;
- );
+      &lt;Button type="submit" data-testid="PersonalScheduleForm-submit"&gt;
+        {buttonLabel}
+      &lt;/Button&gt;
+      &lt;Button
+        variant="Secondary"
+        onClick={() =&gt; navigate(-1)}
+        data-testid="PersonalScheduleForm-cancel"
+      &gt;
+        Cancel
+      &lt;/Button&gt;
+    &lt;/Form&gt;
+  );
 }
 &nbsp;
-export default PersonalScheduleForm;</pre></td></tr></table></pre>
+export default PersonalScheduleForm;
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Wed Mar 06 2024 00:07:05 GMT-0800 (Pacific Standard Time)
+                at Wed Mar 06 2024 13:25:15 GMT-0800 (Pacific Standard Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
