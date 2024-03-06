@@ -28,6 +28,8 @@ export default function PersonalSchedulesEditPage({ storybook = false }) {
     },
   );
 
+  console.log("PersonalSchedule: ", personalSchedule)
+
   const {
     data: courses,
     error: _PCerror,
