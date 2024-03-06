@@ -206,4 +206,30 @@ describe("BasicCourseSearchForm tests", () => {
       await screen.findByTestId(/BasicSearch.Quarter-option-3/),
     ).toHaveValue("20214");
   });
+
+  test("when I click submit, there is a Quarter, Subject, and CourseLevel field by default", async () => {
+    axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
+    const sampleReturnValue = {
+      sampleKey: "sampleValue",
+    };
+
+    const fetchJSONSpy = jest.fn();
+
+    fetchJSONSpy.mockResolvedValue(sampleReturnValue);
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <BasicCourseSearchForm fetchJSON={fetchJSONSpy} />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    const expectedKey_Quarter = "BasicSearch.Quarter-option-0";
+    expect(screen.getByTestId(expectedKey_Quarter)).toBeInTheDocument();
+    const expectedKey_Subject = "BasicSearch.Subject-option-ANTH";
+    expect(screen.getByTestId(expectedKey_Subject)).toBeInTheDocument();
+    const expectedKey_CourseLevel = "BasicSearch.CourseLevel-option-0";
+    expect(screen.getByTestId(expectedKey_CourseLevel)).toBeInTheDocument();
+  });
 });
