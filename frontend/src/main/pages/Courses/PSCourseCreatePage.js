@@ -48,7 +48,8 @@ export default function CoursesCreatePage() {
 
           <CourseForm submitAction={onSubmit} />
           <p data-testid="PSCourseCreate-Error">
-            Error: {mutation.error.response.data?.message}
+            Error: {'Please select a personal schedule or create a new one.'}
+            
           </p>
         </div>
       </BasicLayout>
