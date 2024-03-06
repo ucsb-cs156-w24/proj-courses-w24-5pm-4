@@ -136,7 +136,9 @@ describe("CoursesCreatePage tests", () => {
     expect(PSError).toBeInTheDocument();
 
     expect(
-      await screen.findByText(/Please select a personal schedule or create a new one./),
+      await screen.findByText(
+        /Please select a personal schedule or create a new one./,
+      ),
     ).toBeInTheDocument();
 
     await waitFor(() => {
@@ -173,7 +175,9 @@ describe("CoursesCreatePage tests", () => {
     ).toBeInTheDocument();
     expect(localStorage.getItem("CourseForm-psId")).toBe("17");
     expect(
-        screen.queryByText(/Please select a personal schedule or create a new one./),
+      screen.queryByText(
+        /Please select a personal schedule or create a new one./,
+      ),
     ).not.toBeInTheDocument();
   });
 });

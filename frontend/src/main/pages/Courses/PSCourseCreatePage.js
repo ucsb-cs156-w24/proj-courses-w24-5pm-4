@@ -3,7 +3,7 @@ import CourseForm from "main/components/Courses/CourseForm";
 import { Navigate } from "react-router-dom";
 import { useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
-import { Button} from "react-bootstrap";
+import { Button } from "react-bootstrap";
 
 export default function CoursesCreatePage() {
   const objectToAxiosParams = (course) => ({
@@ -23,15 +23,15 @@ export default function CoursesCreatePage() {
 
   const createButton = () => {
     return (
-        <Button
-            variant="primary"
-            href="/personalschedules/create"
-            style={{ float: "right" }}
-        >
-            Add Personal Schedule
-        </Button>
-    )
-  }
+      <Button
+        variant="primary"
+        href="/personalschedules/create"
+        style={{ float: "right" }}
+      >
+        Add Personal Schedule
+      </Button>
+    );
+  };
   const mutation = useBackendMutation(
     objectToAxiosParams,
     { onSuccess },
@@ -60,10 +60,10 @@ export default function CoursesCreatePage() {
 
           <CourseForm submitAction={onSubmit} />
           <p data-testid="PSCourseCreate-Error">
-            Error: {'Please select a personal schedule or create a new one.'}          
+            Error: {"Please select a personal schedule or create a new one."}
           </p>
           {createButton()}
-        </div> 
+        </div>
       </BasicLayout>
     );
   }
