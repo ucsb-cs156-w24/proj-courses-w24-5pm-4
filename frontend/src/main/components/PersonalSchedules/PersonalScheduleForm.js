@@ -15,10 +15,9 @@ function PersonalScheduleForm({
   const { data: systemInfo } = useSystemInfo();
   // Stryker disable OptionalChaining
   const startQtr = systemInfo?.startQtrYYYYQ || "20211";
-  const endQtr = systemInfo?.endQtrYYYYQ || "20214";
+  const endQtr = systemInfo?.endQtrYYYYQ || "20244";
   // Stryker enable OptionalChaining
   const quarters = quarterRange(startQtr, endQtr);
-
   // Stryker disable all
   const {
     register,
@@ -30,10 +29,15 @@ function PersonalScheduleForm({
   const navigate = useNavigate();
   const [quarter, setQuarter] = useState(
     {
-      quarters: quarters,
-    }.quarters[0],
+      yyyyq: initialPersonalSchedule.quarter,
+      qyy: initialPersonalSchedule.name.substring(0,1) + initialPersonalSchedule.name.substring(initialPersonalSchedule.name.length - 2,initialPersonalSchedule.name.length)
+    }
+    // {
+    //   quarters: quarters,
+    // }.quarters[0],
   );
-
+  console.log(initialPersonalSchedule);
+  console.log("Inside PSForm quarter: ", quarter);
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
       {initialPersonalSchedule && (

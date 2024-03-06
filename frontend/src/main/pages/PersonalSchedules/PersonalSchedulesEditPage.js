@@ -11,6 +11,7 @@ export default function PersonalSchedulesEditPage({ storybook = false }) {
   let { id } = useParams();
   const currentUser = useCurrentUser();
 
+  console.log("--------------------------")
   const {
     data: personalSchedule,
     _PSerror,
@@ -28,7 +29,7 @@ export default function PersonalSchedulesEditPage({ storybook = false }) {
     },
   );
 
-  console.log("PersonalSchedule: ", personalSchedule)
+  console.log("Inside Edit Page, PersonalSchedule: ", personalSchedule)
 
   const {
     data: courses,

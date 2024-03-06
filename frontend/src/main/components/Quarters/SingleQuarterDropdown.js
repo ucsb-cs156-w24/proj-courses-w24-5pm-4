@@ -14,6 +14,7 @@ import { Form } from "react-bootstrap";
 //  { yyyyq :"20222", qyy: "S22"}]
 
 function SingleQuarterDropdown({
+  quarter,
   quarters,
   setQuarter,
   controlId,
@@ -21,13 +22,16 @@ function SingleQuarterDropdown({
   label = "Quarter",
 }) {
   const localSearchQuarter = localStorage.getItem(controlId);
+  console.log("localSearchQuarter: ", localSearchQuarter);
   if (!localSearchQuarter) {
+    console.log("inside if");
     localStorage.setItem(controlId, quarters[0].yyyyq);
   }
 
   const [quarterState, setQuarterState] = useState(
     // Stryker disable next-line all : not sure how to test/mock local storage
-    localSearchQuarter || quarters[0].yyyyq,
+    //localSearchQuarter || quarters[0].yyyyq,
+    quarter.yyyyq
   );
 
   const handleQuarterOnChange = (event) => {
@@ -39,7 +43,9 @@ function SingleQuarterDropdown({
       onChange(event);
     }
   };
-
+  
+  console.log("quarters: ", quarters);
+  console.log("Quarter state", quarterState);
   return (
     <Form.Group controlId={controlId}>
       <Form.Label>{label}</Form.Label>
