@@ -107,7 +107,10 @@ public class PSCourseController extends ApiController {
   @PostMapping("/post")
   public ArrayList<PSCourse> postCourses(
       @Parameter(name = "enrollCd") @RequestParam String enrollCd,
-      @Parameter(name = "psId") @RequestParam Long psId)
+      @Parameter(name = "psId") @RequestParam Long psId,
+      @Parameter(name = "courseName") @RequestParam String courseName,
+      @Parameter(name = "schduleName") @RequestParam String schduleName,
+      @Parameter(name = "quarter") @RequestParam String quarter)
       throws JsonProcessingException {
     CurrentUser currentUser = getCurrentUser();
     log.info("currentUser={}", currentUser);
@@ -155,6 +158,9 @@ public class PSCourseController extends ApiController {
       secondary.setUser(currentUser.getUser());
       secondary.setEnrollCd(enrollCdSecondary);
       secondary.setPsId(psId);
+      secondary.setCourseName(courseName);
+      secondary.setSchduleName(schduleName);
+      secondary.setQuarter(quarter);
       PSCourse savedSecondary = coursesRepository.save(secondary);
       savedCourses.add(savedSecondary);
     } else if (hasSecondary) {
@@ -167,6 +173,9 @@ public class PSCourseController extends ApiController {
     primary.setUser(currentUser.getUser());
     primary.setEnrollCd(enrollCdPrimary);
     primary.setPsId(psId);
+    primary.setCourseName(courseName);
+    primary.setSchduleName(schduleName);
+    primary.setQuarter(quarter);
     PSCourse savedPrimary = coursesRepository.save(primary);
     savedCourses.add(savedPrimary);
     return savedCourses;
@@ -253,6 +262,10 @@ public class PSCourseController extends ApiController {
     courses.setEnrollCd(incomingCourses.getEnrollCd());
     courses.setPsId(incomingCourses.getPsId());
 
+    courses.setCourseName(incomingCourses.getCourseName());
+    courses.setSchduleName(incomingCourses.getSchduleName());
+    courses.setQuarter(incomingCourses.getQuarter());
+
     coursesRepository.save(courses);
 
     return courses;
@@ -271,6 +284,10 @@ public class PSCourseController extends ApiController {
 
     courses.setEnrollCd(incomingCourses.getEnrollCd());
     courses.setPsId(incomingCourses.getPsId());
+
+    courses.setCourseName(incomingCourses.getCourseName());
+    courses.setSchduleName(incomingCourses.getSchduleName());
+    courses.setQuarter(incomingCourses.getQuarter());
 
     coursesRepository.save(courses);
 

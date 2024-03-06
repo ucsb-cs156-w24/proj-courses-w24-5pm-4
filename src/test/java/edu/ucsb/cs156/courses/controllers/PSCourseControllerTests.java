@@ -99,7 +99,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // arrange
 
     User u = currentUserService.getCurrentUser().getUser();
-    PSCourse course1 = PSCourse.builder().enrollCd("08250").psId(13L).user(u).id(7L).build();
+    PSCourse course1 = PSCourse.builder().enrollCd("08250").courseName("MATH").schduleName("test").quarter("20222").psId(13L).user(u).id(7L).build();
     when(coursesRepository.findByIdAndUser(eq(7L), eq(u))).thenReturn(Optional.of(course1));
 
     // act
@@ -136,7 +136,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     assertEquals("EntityNotFoundException", json.get("type"));
     assertEquals("PSCourse with id 7 not found", json.get("message"));
   }
-
+// putCourseById_admin. api_schedules__admin_logged_in__put_schedule() 
   @WithMockUser(roles = {"ADMIN"})
   @Test
   public void api_courses__admin_logged_in__returns_a_courses_that_exists_using_psid()
@@ -145,8 +145,10 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // arrange
 
     User u = currentUserService.getCurrentUser().getUser();
-    PSCourse course1 = PSCourse.builder().enrollCd("08250").psId(13L).user(u).id(7L).build();
-    PSCourse course2 = PSCourse.builder().enrollCd("08251").psId(13L).user(u).id(8L).build();
+    // PSCourse course1 = PSCourse.builder().enrollCd("08250").psId(13L).user(u).id(7L).build();
+    PSCourse course1 = PSCourse.builder().enrollCd("08250").courseName("MATH").schduleName("test").quarter("20222").psId(13L).user(u).id(7L).build();
+    PSCourse course2 = PSCourse.builder().enrollCd("08251").courseName("CMPSC").schduleName("test").quarter("20221").psId(13L).user(u).id(8L).build();
+    // PSCourse course2 = PSCourse.builder().enrollCd("08251").psId(13L).user(u).id(8L).build();
     ArrayList<PSCourse> expectedCourses = new ArrayList<>();
     expectedCourses.addAll(Arrays.asList(course1, course2));
     when(coursesRepository.findAllByPsId(13L)).thenReturn(expectedCourses);
@@ -174,8 +176,10 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // arrange
 
     User u = currentUserService.getCurrentUser().getUser();
-    PSCourse course1 = PSCourse.builder().enrollCd("08250").psId(13L).user(u).id(7L).build();
-    PSCourse course2 = PSCourse.builder().enrollCd("08251").psId(13L).user(u).id(8L).build();
+    // PSCourse course1 = PSCourse.builder().enrollCd("08250").psId(13L).user(u).id(7L).build();
+    // PSCourse course2 = PSCourse.builder().enrollCd("08251").psId(13L).user(u).id(8L).build();
+    PSCourse course1 = PSCourse.builder().enrollCd("08250").courseName("MATH").schduleName("test").quarter("20222").psId(13L).user(u).id(7L).build();
+    PSCourse course2 = PSCourse.builder().enrollCd("08251").courseName("CMPSC").schduleName("test").quarter("20221").psId(13L).user(u).id(8L).build();
     ArrayList<PSCourse> expectedCourses = new ArrayList<>();
     expectedCourses.addAll(Arrays.asList(course1, course2));
     when(coursesRepository.findAllByPsIdAndUser(13L, u)).thenReturn(expectedCourses);
@@ -205,7 +209,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     User u = currentUserService.getCurrentUser().getUser();
     User otherUser = User.builder().id(999L).build();
     PSCourse otherUsersCourses =
-        PSCourse.builder().enrollCd("08250").psId(13L).user(otherUser).id(13L).build();
+        PSCourse.builder().enrollCd("08250").courseName("MATH").schduleName("test").quarter("20222").psId(13L).user(otherUser).id(13L).build();
 
     when(coursesRepository.findByIdAndUser(eq(13L), eq(otherUser)))
         .thenReturn(Optional.of(otherUsersCourses));
@@ -235,7 +239,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     User u = currentUserService.getCurrentUser().getUser();
     User otherUser = User.builder().id(999L).build();
     PSCourse otherUsersCourses =
-        PSCourse.builder().enrollCd("08250").psId(13L).user(otherUser).id(27L).build();
+        PSCourse.builder().enrollCd("08250").courseName("MATH").schduleName("test").quarter("20222").psId(13L).user(otherUser).id(27L).build();
 
     when(coursesRepository.findById(eq(27L))).thenReturn(Optional.of(otherUsersCourses));
 
@@ -285,9 +289,12 @@ public class PSCourseControllerTests extends ControllerTestCase {
     User u2 = User.builder().id(2L).build();
     User u = currentUserService.getCurrentUser().getUser();
 
-    PSCourse p1 = PSCourse.builder().enrollCd("08250").psId(13L).user(u1).id(1L).build();
-    PSCourse p2 = PSCourse.builder().enrollCd("08276").psId(13L).user(u2).id(2L).build();
-    PSCourse p3 = PSCourse.builder().enrollCd("08078").psId(13L).user(u).id(3L).build();
+    PSCourse p1 = PSCourse.builder().enrollCd("08250").courseName("MATH").schduleName("test").quarter("20222").psId(13L).user(u).id(1L).build();
+    PSCourse p2 = PSCourse.builder().enrollCd("08276").courseName("CMPSC").schduleName("test").quarter("20221").psId(13L).user(u).id(2L).build();
+
+    // PSCourse p1 = PSCourse.builder().enrollCd("08250").psId(13L).user(u1).id(1L).build();
+    // PSCourse p2 = PSCourse.builder().enrollCd("08276").psId(13L).user(u2).id(2L).build();
+    PSCourse p3 = PSCourse.builder().enrollCd("08078").courseName("CMPSC").schduleName("test").quarter("20221").psId(13L).user(u).id(3L).build();
 
     ArrayList<PSCourse> expectedCourses = new ArrayList<>();
     expectedCourses.addAll(Arrays.asList(p1, p2, p3));
@@ -314,8 +321,10 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     User thisUser = currentUserService.getCurrentUser().getUser();
 
-    PSCourse p1 = PSCourse.builder().enrollCd("08250").psId(13L).user(thisUser).id(1L).build();
-    PSCourse p2 = PSCourse.builder().enrollCd("08276").psId(13L).user(thisUser).id(2L).build();
+    // PSCourse p1 = PSCourse.builder().enrollCd("08250").psId(13L).user(thisUser).id(1L).build();
+    // PSCourse p2 = PSCourse.builder().enrollCd("08276").psId(13L).user(thisUser).id(2L).build();
+    PSCourse p1 = PSCourse.builder().enrollCd("08250").courseName("MATH").schduleName("test").quarter("20222").psId(13L).user(thisUser).id(1L).build();
+    PSCourse p2 = PSCourse.builder().enrollCd("08276").courseName("CMPSC").schduleName("test").quarter("20221").psId(13L).user(thisUser).id(2L).build();
 
     ArrayList<PSCourse> expectedCourses = new ArrayList<>();
     expectedCourses.addAll(Arrays.asList(p1, p2));
@@ -352,7 +361,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).user(u).id(0L).build();
+    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").courseName("Test").schduleName("Test").quarter("20221").psId(1L).user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896"))).thenReturn(Optional.empty());
 
@@ -362,7 +371,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(post("/api/courses/post?enrollCd=08896&psId=1").with(csrf()))
+            .perform(post("/api/courses/post?enrollCd=08896&psId=1&courseName=Test&schduleName=Test&quarter=20221").with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -393,7 +402,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).user(u).id(0L).build();
+    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").courseName("Test").schduleName("Test").quarter("20221").psId(1L).user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896")))
         .thenReturn(Optional.of(expectedPrimary));
@@ -404,7 +413,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(post("/api/courses/post?enrollCd=08896&psId=1").with(csrf()))
+            .perform(post("/api/courses/post?enrollCd=08896&psId=1&courseName=Test&schduleName=Test&quarter=20221").with(csrf()))
             .andExpect(status().is(400))
             .andReturn();
 
@@ -438,7 +447,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(post("/api/courses/post?enrollCd=63370&psId=1").with(csrf()))
+            .perform(post("/api/courses/post?enrollCd=63370&psId=1&courseName=Test&schduleName=Test&quarter=20221").with(csrf()))
             .andExpect(status().is(400))
             .andReturn();
 
@@ -474,7 +483,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(post("/api/courses/post?enrollCd=63370&psId=1").with(csrf()))
+            .perform(post("/api/courses/post?enrollCd=63370&psId=1&courseName=Test&schduleName=Test&quarter=20221").with(csrf()))
             .andExpect(status().is(400))
             .andReturn();
 
@@ -507,7 +516,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08896"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC291A_UNEXPECTED);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").psId(1L).user(u).id(0L).build();
+    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08896").courseName("Test").schduleName("Test").quarter("20221").psId(1L).user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08896"))).thenReturn(Optional.empty());
 
@@ -517,7 +526,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(post("/api/courses/post?enrollCd=08896&psId=1").with(csrf()))
+            .perform(post("/api/courses/post?enrollCd=08896&psId=1&courseName=Test&schduleName=Test&quarter=20221").with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -548,11 +557,11 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("63388"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC100);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("63370").psId(1L).user(u).id(0L).build();
+    PSCourse expectedPrimary = PSCourse.builder().enrollCd("63370").courseName("Test").schduleName("Test").quarter("20221").psId(1L).user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
 
     PSCourse expectedSecondary =
-        PSCourse.builder().enrollCd("63388").psId(1L).user(u).id(0L).build();
+        PSCourse.builder().enrollCd("63388").courseName("Test").schduleName("Test").quarter("20221").psId(1L).user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedSecondary))).thenReturn(expectedSecondary);
 
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("63370"))).thenReturn(Optional.empty());
@@ -564,7 +573,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(post("/api/courses/post?enrollCd=63388&psId=1").with(csrf()))
+            .perform(post("/api/courses/post?enrollCd=63388&psId=1&courseName=Test&schduleName=Test&quarter=20221").with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -596,11 +605,11 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(ucsbCurriculumService.getAllSections(eq("08326"), eq("20221")))
         .thenReturn(SectionFixtures.SECTION_JSON_CMPSC156_UNEXPECTED);
 
-    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08292").psId(1L).user(u).id(0L).build();
+    PSCourse expectedPrimary = PSCourse.builder().enrollCd("08292").courseName("Test").schduleName("Test").quarter("20221").psId(1L).user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedPrimary))).thenReturn(expectedPrimary);
 
     PSCourse expectedSecondary =
-        PSCourse.builder().enrollCd("08326").psId(1L).user(u).id(0L).build();
+        PSCourse.builder().enrollCd("08326").courseName("Test").schduleName("Test").quarter("20221").psId(1L).user(u).id(0L).build();
     when(coursesRepository.save(eq(expectedSecondary))).thenReturn(expectedSecondary);
 
     when(coursesRepository.findByPsIdAndEnrollCd(eq(1L), eq("08292"))).thenReturn(Optional.empty());
@@ -612,7 +621,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(post("/api/courses/post?enrollCd=08326&psId=1").with(csrf()))
+            .perform(post("/api/courses/post?enrollCd=08326&psId=1&courseName=Test&schduleName=Test&quarter=20221").with(csrf()))
             .andExpect(status().isOk())
             .andReturn();
 
@@ -647,7 +656,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(post("/api/courses/post?enrollCd=test&psId=1").with(csrf()))
+            .perform(post("/api/courses/post?enrollCd=test&psId=1&courseName=Test&schduleName=Test&quarter=20224").with(csrf()))
             .andExpect(status().isNotFound())
             .andReturn();
 
@@ -682,7 +691,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(post("/api/courses/post?enrollCd=test&psId=1").with(csrf()))
+            .perform(post("/api/courses/post?enrollCd=test&psId=1&courseName=Test&schduleName=Test&quarter=20224").with(csrf()))
             .andExpect(status().isNotFound())
             .andReturn();
 
@@ -703,7 +712,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // act
     MvcResult response =
         mockMvc
-            .perform(post("/api/courses/post?enrollCd=08268&psId=1").with(csrf()))
+            .perform(post("/api/courses/post?enrollCd=08268&psId=1&courseName=Test&schduleName=Test&quarter=20224").with(csrf()))
             .andExpect(status().isNotFound())
             .andReturn();
 
@@ -728,7 +737,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .user(u)
             .id(1L)
             .build();
-    PSCourse primary = PSCourse.builder().enrollCd("08896").psId(1L).user(u).id(1L).build();
+    PSCourse primary = PSCourse.builder().enrollCd("08896").courseName("Test").schduleName("Test").quarter("20221").psId(1L).user(u).id(1L).build();
 
     when(coursesRepository.findByIdAndUser(eq(1L), eq(u))).thenReturn(Optional.of(primary));
     when(personalScheduleRepository.findByIdAndUser(eq(1L), eq(u))).thenReturn(Optional.of(ps));
@@ -764,7 +773,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .user(u)
             .id(1L)
             .build();
-    PSCourse primary = PSCourse.builder().enrollCd("08896").psId(1L).user(u).id(1L).build();
+    PSCourse primary = PSCourse.builder().enrollCd("08896").courseName("Test").schduleName("Test").quarter("20221").psId(1L).user(u).id(1L).build();
 
     when(coursesRepository.findByIdAndUser(eq(1L), eq(u))).thenReturn(Optional.of(primary));
     when(personalScheduleRepository.findByIdAndUser(eq(1L), eq(u))).thenReturn(Optional.of(ps));
@@ -800,7 +809,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .user(u)
             .id(1L)
             .build();
-    PSCourse primary = PSCourse.builder().enrollCd("08896").psId(1L).user(u).id(1L).build();
+    PSCourse primary = PSCourse.builder().enrollCd("08896").courseName("Test").schduleName("Test").quarter("20221").psId(1L).user(u).id(1L).build();
 
     when(coursesRepository.findByIdAndUser(eq(1L), eq(u))).thenReturn(Optional.of(primary));
     when(personalScheduleRepository.findByIdAndUser(eq(1L), eq(u))).thenReturn(Optional.of(ps));
@@ -1114,14 +1123,14 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     User u = currentUserService.getCurrentUser().getUser();
     User otherUser = User.builder().id(999).build();
-    PSCourse ps1 = PSCourse.builder().enrollCd("08250").psId(13L).user(u).id(67L).build();
+    PSCourse ps1 = PSCourse.builder().enrollCd("08250").courseName("Test").schduleName("Test").quarter("20221").psId(13L).user(u).id(67L).build();
     // We deliberately set the user information to another user
     // This should get ignored and overwritten with current user when todo is saved
 
     PSCourse updatedCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).user(otherUser).id(67L).build();
+        PSCourse.builder().enrollCd("08276").courseName("Test1").schduleName("Test2").quarter("20222").psId(14L).user(otherUser).id(67L).build();
     PSCourse correctCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).user(u).id(67L).build();
+        PSCourse.builder().enrollCd("08276").courseName("Test1").schduleName("Test2").quarter("20222").psId(14L).user(u).id(67L).build();
 
     String requestBody = mapper.writeValueAsString(updatedCourses);
     String expectedReturn = mapper.writeValueAsString(correctCourses);
@@ -1154,7 +1163,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // arrange
 
     User u = currentUserService.getCurrentUser().getUser();
-    PSCourse updatedCourses = PSCourse.builder().enrollCd("08276").psId(14L).id(67L).build();
+    PSCourse updatedCourses = PSCourse.builder().enrollCd("08276").courseName("Test").schduleName("Test").quarter("20221").psId(14L).id(67L).build();
 
     String requestBody = mapper.writeValueAsString(updatedCourses);
 
@@ -1185,8 +1194,8 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     User u = currentUserService.getCurrentUser().getUser();
     User otherUser = User.builder().id(98L).build();
-    PSCourse ps1 = PSCourse.builder().enrollCd("08250").psId(13L).user(otherUser).id(31L).build();
-    PSCourse updatedCourses = PSCourse.builder().enrollCd("08276").psId(14L).id(31L).build();
+    PSCourse ps1 = PSCourse.builder().enrollCd("08250").courseName("Test").schduleName("Test").quarter("20221").psId(13L).user(otherUser).id(31L).build();
+    PSCourse updatedCourses = PSCourse.builder().enrollCd("08276").courseName("Test").schduleName("Test").quarter("20221").psId(14L).id(31L).build();
 
     when(coursesRepository.findByIdAndUser(eq(31L), eq(otherUser))).thenReturn(Optional.of(ps1));
 
@@ -1217,14 +1226,14 @@ public class PSCourseControllerTests extends ControllerTestCase {
     // arrange
 
     User otherUser = User.builder().id(255L).build();
-    PSCourse ps1 = PSCourse.builder().enrollCd("08250").psId(13L).user(otherUser).id(77L).build();
+    PSCourse ps1 = PSCourse.builder().enrollCd("08250").courseName("Test").schduleName("Test").quarter("20221").psId(13L).user(otherUser).id(77L).build();
     User yetAnotherUser = User.builder().id(512L).build();
     // We deliberately put the wrong user on the updated course
     // We expect the controller to ignore this and keep the user the same
     PSCourse updatedCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).user(yetAnotherUser).id(77L).build();
+        PSCourse.builder().enrollCd("08276").courseName("Test1").schduleName("Test2").quarter("20222").psId(14L).user(yetAnotherUser).id(77L).build();
     PSCourse correctCourses =
-        PSCourse.builder().enrollCd("08276").psId(14L).user(otherUser).id(77L).build();
+        PSCourse.builder().enrollCd("08276").courseName("Test1").schduleName("Test2").quarter("20222").psId(14L).user(otherUser).id(77L).build();
 
     String requestBody = mapper.writeValueAsString(updatedCourses);
     String expectedJson = mapper.writeValueAsString(correctCourses);
@@ -1258,7 +1267,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     User otherUser = User.builder().id(345L).build();
     PSCourse updatedCourses =
-        PSCourse.builder().enrollCd("08250").psId(13L).user(otherUser).id(77L).build();
+        PSCourse.builder().enrollCd("08250").courseName("Test").schduleName("Test").quarter("20221").psId(13L).user(otherUser).id(77L).build();
 
     String requestBody = mapper.writeValueAsString(updatedCourses);
 
