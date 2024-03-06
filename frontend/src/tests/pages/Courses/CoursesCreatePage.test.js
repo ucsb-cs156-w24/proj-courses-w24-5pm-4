@@ -134,6 +134,17 @@ describe("CoursesCreatePage tests", () => {
     await screen.findByTestId("PSCourseCreate-Error");
     const PSError = screen.getByTestId("PSCourseCreate-Error");
     expect(PSError).toBeInTheDocument();
+
+    expect(
+      await screen.findByText(/Please select a personal schedule or create a new one./),
+    ).toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByText(/Add Personal Schedule/)).toBeInTheDocument();
+    });
+    const button = screen.getByText(/Add Personal Schedule/);
+    expect(button).toHaveAttribute("href", "/personalschedules/create");
+    expect(button).toHaveAttribute("style", "float: right;");
   });
 
   test("sets schedule and updates localStorage when schedules are available", async () => {
@@ -161,5 +172,8 @@ describe("CoursesCreatePage tests", () => {
       await screen.findByTestId("CourseForm-enrollCd"),
     ).toBeInTheDocument();
     expect(localStorage.getItem("CourseForm-psId")).toBe("17");
+    expect(
+        screen.queryByText(/Please select a personal schedule or create a new one./),
+    ).not.toBeInTheDocument();
   });
 });
