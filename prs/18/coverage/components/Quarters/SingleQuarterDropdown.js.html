@@ -127,7 +127,10 @@
 <a name='L62'></a><a href='#L62'>62</a>
 <a name='L63'></a><a href='#L63'>63</a>
 <a name='L64'></a><a href='#L64'>64</a>
-<a name='L65'></a><a href='#L65'>65</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L65'></a><a href='#L65'>65</a>
+<a name='L66'></a><a href='#L66'>66</a>
+<a name='L67'></a><a href='#L67'>67</a>
+<a name='L68'></a><a href='#L68'>68</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -149,17 +152,19 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">521x</span>
-<span class="cline-any cline-yes">521x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">515x</span>
+<span class="cline-any cline-yes">515x</span>
 <span class="cline-any cline-yes">86x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">521x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">515x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">521x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">515x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
 <span class="cline-any cline-yes">38x</span>
@@ -169,7 +174,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">521x</span>
+<span class="cline-any cline-yes">515x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -178,8 +183,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">13226x</span>
-<span class="cline-any cline-yes">13226x</span>
+<span class="cline-any cline-yes">12858x</span>
+<span class="cline-any cline-yes">12858x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -207,52 +213,55 @@ import { Form } from "react-bootstrap";
 //  { yyyyq :"20222", qyy: "S22"}]
 &nbsp;
 function SingleQuarterDropdown({
-  quarters,
-  setQuarter,
-  controlId,
-  onChange = null,
-  label = "Quarter",
+ quarter,
+ quarters,
+ setQuarter,
+ controlId,
+ onChange = null,
+ label = "Quarter",
 }) {
-  const localSearchQuarter = localStorage.getItem(controlId);
-  if (!localSearchQuarter) {
-    localStorage.setItem(controlId, quarters[0].yyyyq);
-  }
+ const localSearchQuarter = localStorage.getItem(controlId);
+ if (!localSearchQuarter) {
+   localStorage.setItem(controlId, quarters[0].yyyyq);
+ }
+ const [quarterState, setQuarterState] = useState(
+   // Stryker disable next-line all : not sure how to test/mock local storage
+   //localSearchQuarter || quarters[0].yyyyq,
+   quarter.yyyyq || localSearchQuarter
+ );
 &nbsp;
-  const [quarterState, setQuarterState] = useState(
-    // Stryker disable next-line all : not sure how to test/mock local storage
-    localSearchQuarter || quarters[0].yyyyq,
-  );
 &nbsp;
-  const handleQuarterOnChange = (event) =&gt; {
-    const selectedQuarter = event.target.value;
-    localStorage.setItem(controlId, selectedQuarter);
-    setQuarterState(selectedQuarter);
-    setQuarter(selectedQuarter);
-    if (onChange != null) {
-      onChange(event);
-    }
-  };
+ const handleQuarterOnChange = (event) =&gt; {
+   const selectedQuarter = event.target.value;
+   localStorage.setItem(controlId, selectedQuarter);
+   setQuarterState(selectedQuarter);
+   setQuarter(selectedQuarter);
+   if (onChange != null) {
+     onChange(event);
+   }
+ };
 &nbsp;
-  return (
-    &lt;Form.Group controlId={controlId}&gt;
-      &lt;Form.Label&gt;{label}&lt;/Form.Label&gt;
-      &lt;Form.Control
-        as="select"
-        value={quarterState}
-        onChange={handleQuarterOnChange}
-      &gt;
-        {quarters.map(function (object, i) {
-          const key = `${controlId}-option-${i}`;
-          return (
-            &lt;option key={key} data-testid={key} value={object.yyyyq}&gt;
-              {object.qyy}
-            &lt;/option&gt;
-          );
-        })}
-      &lt;/Form.Control&gt;
-    &lt;/Form.Group&gt;
-  );
+ return (
+   &lt;Form.Group controlId={controlId}&gt;
+     &lt;Form.Label&gt;{label}&lt;/Form.Label&gt;
+     &lt;Form.Control
+       as="select"
+       value={quarterState}
+       onChange={handleQuarterOnChange}
+     &gt;
+       {quarters.map(function (object, i) {
+         const key = `${controlId}-option-${i}`;
+         return (
+           &lt;option key={key} data-testid={key} value={object.yyyyq}&gt;
+             {object.qyy}
+           &lt;/option&gt;
+         );
+       })}
+     &lt;/Form.Control&gt;
+   &lt;/Form.Group&gt;
+ );
 }
+&nbsp;
 &nbsp;
 export default SingleQuarterDropdown;
 &nbsp;</pre></td></tr></table></pre>
@@ -262,7 +271,7 @@ export default SingleQuarterDropdown;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at Mon Mar 04 2024 15:12:49 GMT-0800 (Pacific Standard Time)
+                at Tue Mar 05 2024 23:50:58 GMT-0800 (Pacific Standard Time)
             </div>
         <script src="../../prettify.js"></script>
         <script>
