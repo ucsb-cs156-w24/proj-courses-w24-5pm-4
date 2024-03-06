@@ -25,35 +25,10 @@ function PersonalScheduleForm({
     handleSubmit,
   } = useForm({ defaultValues: initialPersonalSchedule || {} });
   // Stryker restore all
-
-  // let obj = {};
-  // if (initialPersonalSchedule) {
-  //   obj = {
-  //     yyyyq: initialPersonalSchedule?.quarter,
-  //     qyy:
-  //       initialPersonalSchedule?.name.substring(0, 1) +
-  //       initialPersonalSchedule?.name.substring(
-  //         initialPersonalSchedule?.name.length - 2,
-  //         initialPersonalSchedule?.name.length,
-  //       ),
-  //   }
-  // }
-  // else {
-  //   obj = {quarters: quarters,
-  //   }.quarters[0]
-  // }
   const navigate = useNavigate();
-  const [quarter, setQuarter] = useState(
-    {
-      yyyyq: initialPersonalSchedule?.quarter,
-      // qyy:
-      //   initialPersonalSchedule?.name.substring(0, 1) +
-      //   initialPersonalSchedule?.name.substring(
-      //     initialPersonalSchedule?.name.length - 2,
-      //     initialPersonalSchedule?.name.length,
-      //   ),
-    }
-  );
+  const [quarter, setQuarter] = useState({
+    yyyyq: initialPersonalSchedule?.quarter,
+  });
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
       {initialPersonalSchedule && (

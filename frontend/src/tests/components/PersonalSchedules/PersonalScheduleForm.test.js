@@ -217,7 +217,7 @@ describe("PersonalScheduleForm tests", () => {
       description: "My Plan for Fall",
       quarter: "20222",
       name: "Fall Courses",
-    }
+    };
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
@@ -226,11 +226,9 @@ describe("PersonalScheduleForm tests", () => {
       </QueryClientProvider>,
     );
     await waitFor(() => {
-      expect(document.querySelector("#PersonalScheduleForm-quarter")).toHaveValue("20222");
+      expect(
+        document.querySelector("#PersonalScheduleForm-quarter"),
+      ).toHaveValue("20222");
     });
-    console.log("HERE ", document.querySelector("#PersonalScheduleForm-quarter"));
-    // await waitFor(() => {
-    //   expect(screen.getByText("#PersonalScheduleForm-quarter")).toHaveValue("W22");
-    // });
   });
 });
