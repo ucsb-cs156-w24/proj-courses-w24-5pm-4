@@ -207,7 +207,7 @@ describe("BasicCourseSearchForm tests", () => {
     ).toHaveValue("20214");
   });
 
-  test("when I click submit, there is a Quarter, Subject, and CourseLeve feild by default", async () => {
+  test("when I click submit, there is a Quarter, Subject, and CourseLevel field by default", async () => {
     axiosMock.onGet("/api/UCSBSubjects/all").reply(200, allTheSubjects);
     const sampleReturnValue = {
       sampleKey: "sampleValue",
