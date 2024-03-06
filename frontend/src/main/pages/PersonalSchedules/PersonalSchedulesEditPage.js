@@ -39,9 +39,9 @@ export default function PersonalSchedulesEditPage({ storybook = false }) {
       // Stryker disable next-line StringLiteral : GET is default, so replacing with "" is an equivalent mutation
       method: "GET",
       url: `/api/courses/user/psid/all?psId=${id}`,
-      params: {
-        id,
-      },
+      // params: {
+      //   id,
+      // },
     },
     [],
   );
