@@ -10,11 +10,11 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 import edu.ucsb.cs156.courses.ControllerTestCase;
-import edu.ucsb.cs156.courses.entities.PersonalSchedule;
 import edu.ucsb.cs156.courses.entities.PSCourse;
+import edu.ucsb.cs156.courses.entities.PersonalSchedule;
 import edu.ucsb.cs156.courses.entities.User;
-import edu.ucsb.cs156.courses.repositories.PersonalScheduleRepository;
 import edu.ucsb.cs156.courses.repositories.PSCourseRepository;
+import edu.ucsb.cs156.courses.repositories.PersonalScheduleRepository;
 import edu.ucsb.cs156.courses.repositories.UserRepository;
 import edu.ucsb.cs156.courses.testconfig.TestConfig;
 import java.util.ArrayList;
@@ -373,12 +373,13 @@ public class PersonalSchedulesControllerTests extends ControllerTestCase {
     assertEquals(expectedJson, responseString);
   }
 
-@WithMockUser(roles = {"USER"})
-@Test
-public void api_schedules__user_logged_in__delete_schedule() throws Exception {
+  @WithMockUser(roles = {"USER"})
+  @Test
+  public void api_schedules__user_logged_in__delete_schedule() throws Exception {
     // arrange
     User u = currentUserService.getCurrentUser().getUser();
-    PersonalSchedule ps1 = PersonalSchedule.builder()
+    PersonalSchedule ps1 =
+        PersonalSchedule.builder()
             .name("Name 1")
             .description("Description 1")
             .quarter("20221")
@@ -386,26 +387,11 @@ public void api_schedules__user_logged_in__delete_schedule() throws Exception {
             .id(15L)
             .build();
 
-    PSCourse c1 = PSCourse.builder()
-            .enrollCd("08896")
-            .psId(15L)
-            .user(u)
-            .id(1L)
-            .build();
+    PSCourse c1 = PSCourse.builder().enrollCd("08896").psId(15L).user(u).id(1L).build();
 
-    PSCourse c2 = PSCourse.builder()
-            .enrollCd("08897")
-            .psId(15L)
-            .user(u)
-            .id(2L)
-            .build();
+    PSCourse c2 = PSCourse.builder().enrollCd("08897").psId(15L).user(u).id(2L).build();
 
-    PSCourse c3 = PSCourse.builder()
-            .enrollCd("08898")
-            .psId(15L)
-            .user(u)
-            .id(3L)
-            .build();
+    PSCourse c3 = PSCourse.builder().enrollCd("08898").psId(15L).user(u).id(3L).build();
 
     List<PSCourse> courseList = new ArrayList<>();
     courseList.add(c1);
@@ -417,9 +403,10 @@ public void api_schedules__user_logged_in__delete_schedule() throws Exception {
 
     // act
     MvcResult response =
-            mockMvc.perform(delete("/api/personalschedules?id=15").with(csrf()))
-                    .andExpect(status().isOk())
-                    .andReturn();
+        mockMvc
+            .perform(delete("/api/personalschedules?id=15").with(csrf()))
+            .andExpect(status().isOk())
+            .andReturn();
 
     // assert
     verify(personalscheduleRepository, times(1)).findByIdAndUser(15L, u);
@@ -427,14 +414,12 @@ public void api_schedules__user_logged_in__delete_schedule() throws Exception {
     verify(coursesRepository, times(1)).findAllByPsId(15L);
     // Modified verification for PSCourseRepository::delete
     for (PSCourse course : courseList) {
-        verify(coursesRepository, times(1)).delete(course);
+      verify(coursesRepository, times(1)).delete(course);
     }
 
     Map<String, Object> json = responseToJson(response);
     assertEquals("PersonalSchedule with id 15 deleted", json.get("message"));
-}
-
-
+  }
 
   @WithMockUser(roles = {"USER"})
   @Test
