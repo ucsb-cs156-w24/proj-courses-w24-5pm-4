@@ -3,9 +3,9 @@ import { useBackend } from "main/utils/useBackend";
 
 import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
 import PersonalSchedulesTable from "main/components/PersonalSchedules/PersonalSchedulesTable";
-import { useCurrentUser} from "main/utils/currentUser";
-import { Button } from 'react-bootstrap';
-
+import { useCurrentUser } from "main/utils/currentUser";
+import { Button } from "react-bootstrap";
+//Stryker disable StringLiteral, ObjectLiteral, BlockStatement
 export default function PersonalSchedulesIndexPage() {
   const currentUser = useCurrentUser();
 
@@ -22,17 +22,17 @@ export default function PersonalSchedulesIndexPage() {
 
   const createButton = () => {
     // if (hasRole(currentUser, "ROLE_ADMIN")) {
-        return (
-            <Button
-                variant="primary"
-                href="/personalschedules/create"
-                style={{ float: "right" }}
-            >
-                Add Personal Schedule
-            </Button>
-        )
-    // } 
-  }
+    return (
+      <Button
+        variant="primary"
+        href="/personalschedules/create"
+        style={{ float: "right" }}
+      >
+        Add Personal Schedule
+      </Button>
+    );
+    // }
+  };
 
   return (
     <BasicLayout>

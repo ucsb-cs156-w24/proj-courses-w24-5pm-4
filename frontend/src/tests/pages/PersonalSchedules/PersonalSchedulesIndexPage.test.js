@@ -200,7 +200,5 @@ describe("PersonalSchedulesIndexPage tests", () => {
       );
     });
   });
-  test("what happens when you click add new schedule on index page, admin", async () => {
-      
-  });
+  test("what happens when you click add new schedule on index page, admin", async () => {});
 });

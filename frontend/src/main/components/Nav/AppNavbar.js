@@ -52,23 +52,24 @@ export default function AppNavbar({
                   <Nav.Link href="/swagger-ui/index.html">Swagger</Nav.Link>
                 </>
               )}
-               
-                
-               
-
             </Nav>
-            <Nav className = "mr-auto">
-              {hasRole(currentUser, "ROLE_USER") &&(
-                 <Nav.Link href="/courses/list"
-                    data-testid="appnavbar-courses-list">All Courses </Nav.Link>
-                    
-                )}
-                {hasRole(currentUser, "ROLE_USER") &&(
-                 <Nav.Link href="/personalschedules/list"
-                 data-testid="appnavbar-personalschedules-list">All Schedules </Nav.Link>
-                    
-                )}
-                
+            <Nav className="mr-auto">
+              {hasRole(currentUser, "ROLE_USER") && (
+                <Nav.Link
+                  href="/courses/list"
+                  data-testid="appnavbar-courses-list"
+                >
+                  All Courses{" "}
+                </Nav.Link>
+              )}
+              {hasRole(currentUser, "ROLE_USER") && (
+                <Nav.Link
+                  href="/personalschedules/list"
+                  data-testid="appnavbar-personalschedules-list"
+                >
+                  All Schedules{" "}
+                </Nav.Link>
+              )}
             </Nav>
             {/* <Nav className="mr-auto">
               {hasRole(currentUser, "ROLE_USER") && (
