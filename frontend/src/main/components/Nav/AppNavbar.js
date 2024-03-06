@@ -59,7 +59,7 @@ export default function AppNavbar({
                   href="/courses/list"
                   data-testid="appnavbar-courses-list"
                 >
-                  All Courses{" "}
+                  All Courses
                 </Nav.Link>
               )}
               {hasRole(currentUser, "ROLE_USER") && (
@@ -67,7 +67,7 @@ export default function AppNavbar({
                   href="/personalschedules/list"
                   data-testid="appnavbar-personalschedules-list"
                 >
-                  All Schedules{" "}
+                  All Schedules
                 </Nav.Link>
               )}
             </Nav>
