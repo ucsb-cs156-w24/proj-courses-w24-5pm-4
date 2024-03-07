@@ -156,9 +156,7 @@ describe("PersonalSchedulesEditPage tests", () => {
       const descriptionField = screen.getByTestId(
         "PersonalScheduleForm-description",
       );
-      const quarterField = screen.getByTestId(
-        "PersonalScheduleForm-quarter",
-      );
+      const quarterField = screen.getByTestId("PersonalScheduleForm-quarter");
       const submitButton = screen.getByTestId("PersonalScheduleForm-submit");
 
       expect(idField).toBeInTheDocument();
@@ -168,7 +166,7 @@ describe("PersonalSchedulesEditPage tests", () => {
       expect(descriptionField).toBeInTheDocument();
       expect(descriptionField).toHaveValue("My Winter Courses");
       expect(quarterField).toBeInTheDocument();
-      expect(quarterField).toHaveValue("W22")
+      expect(quarterField).toHaveValue("W22");
       expect(submitButton).toHaveTextContent("Update");
 
       fireEvent.change(nameField, { target: { value: "Winter Courses" } });

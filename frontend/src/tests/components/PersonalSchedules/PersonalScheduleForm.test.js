@@ -226,9 +226,9 @@ describe("PersonalScheduleForm tests", () => {
       </QueryClientProvider>,
     );
     await waitFor(() => {
-      expect(
-        screen.getByTestId("PersonalScheduleForm-quarter"),
-      ).toHaveValue("S22");
+      expect(screen.getByTestId("PersonalScheduleForm-quarter")).toHaveValue(
+        "S22",
+      );
     });
   });
   test("Form has initialPersonalSchedule content with Fall quarter", async () => {
@@ -261,9 +261,9 @@ describe("PersonalScheduleForm tests", () => {
       </QueryClientProvider>,
     );
     await waitFor(() => {
-      expect(
-        screen.getByTestId("PersonalScheduleForm-quarter"),
-      ).toHaveValue("F22");
+      expect(screen.getByTestId("PersonalScheduleForm-quarter")).toHaveValue(
+        "F22",
+      );
     });
   });
   test("Form has initialPersonalSchedule content with M quarter", async () => {
@@ -296,9 +296,9 @@ describe("PersonalScheduleForm tests", () => {
       </QueryClientProvider>,
     );
     await waitFor(() => {
-      expect(
-        screen.getByTestId("PersonalScheduleForm-quarter"),
-      ).toHaveValue("M22");
+      expect(screen.getByTestId("PersonalScheduleForm-quarter")).toHaveValue(
+        "M22",
+      );
     });
   });
 });
