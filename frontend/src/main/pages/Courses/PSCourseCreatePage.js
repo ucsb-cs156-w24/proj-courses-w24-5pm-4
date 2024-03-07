@@ -53,10 +53,10 @@ export default function CoursesCreatePage() {
     return <Navigate to="/courses/list" />;
   }
 
-  if (mutation.isError){
-    const psIdError = mutation.error.response.data?.message.includes('psId');
-    if ( psIdError) {
-      return ( 
+  if (mutation.isError) {
+    const psIdError = mutation.error.response.data?.message.includes("psId");
+    if (psIdError) {
+      return (
         <BasicLayout>
           <div className="pt-2">
             <h1>Create New Course</h1>
@@ -70,19 +70,18 @@ export default function CoursesCreatePage() {
           </div>
         </BasicLayout>
       );
-    }
-    else  {
-      return(
+    } else {
+      return (
         <BasicLayout>
-        <div className="pt-2">
-          <h1>Create New Course</h1>
-  
-          <CourseForm submitAction={onSubmit} />
-          <p data-testid="PSCourseCreate-Error">
-            Error: {mutation.error.response.data?.message}
-          </p>
-        </div>
-      </BasicLayout>
+          <div className="pt-2">
+            <h1>Create New Course</h1>
+
+            <CourseForm submitAction={onSubmit} />
+            <p data-testid="PSCourseCreate-Error">
+              Error: {mutation.error.response.data?.message}
+            </p>
+          </div>
+        </BasicLayout>
       );
     }
   }

@@ -129,7 +129,7 @@ describe("CoursesCreatePage tests", () => {
     const submitButton = screen.getByTestId("CourseForm-submit");
 
     fireEvent.change(psIdField, { target: { value: 13 } });
-    fireEvent.change(enrollCdField, { target: { value: '11111' } });
+    fireEvent.change(enrollCdField, { target: { value: "11111" } });
 
     expect(submitButton).toBeInTheDocument();
 
@@ -144,7 +144,6 @@ describe("CoursesCreatePage tests", () => {
         /Please select a personal schedule or create a new one./,
       ),
     ).not.toBeInTheDocument();
-
   });
 
   test("sets schedule and updates localStorage when schedules are available", async () => {
@@ -177,9 +176,7 @@ describe("CoursesCreatePage tests", () => {
         /Please select a personal schedule or create a new one./,
       ),
     ).not.toBeInTheDocument();
-
   });
-
 
   test("when you did not select schedule, we get an error", async () => {
     const queryClient = new QueryClient();
@@ -196,13 +193,15 @@ describe("CoursesCreatePage tests", () => {
       </QueryClientProvider>,
     );
 
-    expect(await screen.findByTestId("CourseForm-enrollCd")).toBeInTheDocument();
+    expect(
+      await screen.findByTestId("CourseForm-enrollCd"),
+    ).toBeInTheDocument();
 
     const psIdField = document.querySelector("#CourseForm-psId");
     const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
     const submitButton = screen.getByTestId("CourseForm-submit");
 
-    fireEvent.change(psIdField, { target: { value: ''} });
+    fireEvent.change(psIdField, { target: { value: "" } });
     fireEvent.change(enrollCdField, { target: { value: "00026" } });
 
     expect(submitButton).toBeInTheDocument();
@@ -213,7 +212,6 @@ describe("CoursesCreatePage tests", () => {
     const PSError = screen.getByTestId("PSCourseCreate-Error");
     expect(PSError).toBeInTheDocument();
 
-
     expect(
       await screen.findByText(
         /Please select a personal schedule or create a new one./,
@@ -221,10 +219,10 @@ describe("CoursesCreatePage tests", () => {
     ).toBeInTheDocument();
 
     expect(
-        screen.queryByText(
-          /EnrollCd: 00026 is invalid, (enrollCd must be valid, numeric, and no more than five digits)/,
-        ),
-      ).not.toBeInTheDocument();
+      screen.queryByText(
+        /EnrollCd: 00026 is invalid, (enrollCd must be valid, numeric, and no more than five digits)/,
+      ),
+    ).not.toBeInTheDocument();
 
     await waitFor(() => {
       expect(screen.getByText(/Add Personal Schedule/)).toBeInTheDocument();
@@ -234,7 +232,7 @@ describe("CoursesCreatePage tests", () => {
     expect(button).toHaveAttribute("style", "float: right;");
   });
 
-  test("when you did not select schedule, we get an error", async () => {
+  test("when test message do not have psid, we get other error", async () => {
     const queryClient = new QueryClient();
 
     axiosMock.onPost("/api/courses/post").reply(400, {
@@ -249,13 +247,15 @@ describe("CoursesCreatePage tests", () => {
       </QueryClientProvider>,
     );
 
-    expect(await screen.findByTestId("CourseForm-enrollCd")).toBeInTheDocument();
+    expect(
+      await screen.findByTestId("CourseForm-enrollCd"),
+    ).toBeInTheDocument();
 
     const psIdField = document.querySelector("#CourseForm-psId");
     const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
     const submitButton = screen.getByTestId("CourseForm-submit");
 
-    fireEvent.change(psIdField, { target: { value: ''} });
+    fireEvent.change(psIdField, { target: { value: "" } });
     fireEvent.change(enrollCdField, { target: { value: "00026" } });
 
     expect(submitButton).toBeInTheDocument();
@@ -266,21 +266,16 @@ describe("CoursesCreatePage tests", () => {
     const PSError = screen.getByTestId("PSCourseCreate-Error");
     expect(PSError).toBeInTheDocument();
 
-
     expect(
-      await screen.queryByText(
+      screen.queryByText(
         /Please select a personal schedule or create a new one./,
       ),
     ).not.toBeInTheDocument();
 
     expect(
-        screen.queryByText(
-          /EnrollCd: 00026 is invalid, (enrollCd must be valid, numeric, and no more than five digits)/,
-        ),
-      ).not.toBeInTheDocument();
-
+      screen.queryByText(
+        /EnrollCd: 00026 is invalid, (enrollCd must be valid, numeric, and no more than five digits)/,
+      ),
+    ).not.toBeInTheDocument();
   });
-  
-  
 });
-
