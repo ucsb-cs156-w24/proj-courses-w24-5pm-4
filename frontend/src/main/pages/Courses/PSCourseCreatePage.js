@@ -52,21 +52,41 @@ export default function CoursesCreatePage() {
   if (isSuccess) {
     return <Navigate to="/courses/list" />;
   }
-  if (mutation.isError) {
-    return (
-      <BasicLayout>
+
+  if (mutation.isError){
+    const psIdError = mutation.error.response.data?.message.includes('psId');
+    if ( psIdError) {
+      return ( 
+        <BasicLayout>
+          <div className="pt-2">
+            <h1>Create New Course</h1>
+
+            <CourseForm submitAction={onSubmit} />
+            <p data-testid="PSCourseCreate-Error">
+              Error: {"Please select a personal schedule or create a new one."}
+              {/* Error : {mutation.error.response.data?.message} */}
+            </p>
+            {createButton()}
+          </div>
+        </BasicLayout>
+      );
+    }
+    else  {
+      return(
+        <BasicLayout>
         <div className="pt-2">
           <h1>Create New Course</h1>
-
+  
           <CourseForm submitAction={onSubmit} />
           <p data-testid="PSCourseCreate-Error">
-            Error: {"Please select a personal schedule or create a new one."}
+            Error: {mutation.error.response.data?.message}
           </p>
-          {createButton()}
         </div>
       </BasicLayout>
-    );
+      );
+    }
   }
+
   return (
     <BasicLayout>
       <div className="pt-2">

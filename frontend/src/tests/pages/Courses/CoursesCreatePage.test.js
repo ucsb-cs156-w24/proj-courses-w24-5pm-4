@@ -110,6 +110,10 @@ describe("CoursesCreatePage tests", () => {
   test("when you input incorrect information, we get an error", async () => {
     const queryClient = new QueryClient();
 
+    // axiosMock.onPost("/api/courses/post").reply(404, {
+    //   message: null,
+    // });
+
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -125,7 +129,7 @@ describe("CoursesCreatePage tests", () => {
     const submitButton = screen.getByTestId("CourseForm-submit");
 
     fireEvent.change(psIdField, { target: { value: 13 } });
-    fireEvent.change(enrollCdField, { target: { value: "99881" } });
+    fireEvent.change(enrollCdField, { target: { value: '11111' } });
 
     expect(submitButton).toBeInTheDocument();
 
@@ -136,17 +140,11 @@ describe("CoursesCreatePage tests", () => {
     expect(PSError).toBeInTheDocument();
 
     expect(
-      await screen.findByText(
+      screen.queryByText(
         /Please select a personal schedule or create a new one./,
       ),
-    ).toBeInTheDocument();
+    ).not.toBeInTheDocument();
 
-    await waitFor(() => {
-      expect(screen.getByText(/Add Personal Schedule/)).toBeInTheDocument();
-    });
-    const button = screen.getByText(/Add Personal Schedule/);
-    expect(button).toHaveAttribute("href", "/personalschedules/create");
-    expect(button).toHaveAttribute("style", "float: right;");
   });
 
   test("sets schedule and updates localStorage when schedules are available", async () => {
@@ -179,5 +177,110 @@ describe("CoursesCreatePage tests", () => {
         /Please select a personal schedule or create a new one./,
       ),
     ).not.toBeInTheDocument();
+
   });
+
+
+  test("when you did not select schedule, we get an error", async () => {
+    const queryClient = new QueryClient();
+
+    axiosMock.onPost("/api/courses/post").reply(400, {
+      message: "'psId' for method parameter type Long is not present",
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <CoursesCreatePage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    expect(await screen.findByTestId("CourseForm-enrollCd")).toBeInTheDocument();
+
+    const psIdField = document.querySelector("#CourseForm-psId");
+    const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
+    const submitButton = screen.getByTestId("CourseForm-submit");
+
+    fireEvent.change(psIdField, { target: { value: ''} });
+    fireEvent.change(enrollCdField, { target: { value: "00026" } });
+
+    expect(submitButton).toBeInTheDocument();
+
+    fireEvent.click(submitButton);
+
+    await screen.findByTestId("PSCourseCreate-Error");
+    const PSError = screen.getByTestId("PSCourseCreate-Error");
+    expect(PSError).toBeInTheDocument();
+
+
+    expect(
+      await screen.findByText(
+        /Please select a personal schedule or create a new one./,
+      ),
+    ).toBeInTheDocument();
+
+    expect(
+        screen.queryByText(
+          /EnrollCd: 00026 is invalid, (enrollCd must be valid, numeric, and no more than five digits)/,
+        ),
+      ).not.toBeInTheDocument();
+
+    await waitFor(() => {
+      expect(screen.getByText(/Add Personal Schedule/)).toBeInTheDocument();
+    });
+    const button = screen.getByText(/Add Personal Schedule/);
+    expect(button).toHaveAttribute("href", "/personalschedules/create");
+    expect(button).toHaveAttribute("style", "float: right;");
+  });
+
+  test("when you did not select schedule, we get an error", async () => {
+    const queryClient = new QueryClient();
+
+    axiosMock.onPost("/api/courses/post").reply(400, {
+      message: " for method parameter type Long is not present",
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <CoursesCreatePage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    expect(await screen.findByTestId("CourseForm-enrollCd")).toBeInTheDocument();
+
+    const psIdField = document.querySelector("#CourseForm-psId");
+    const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
+    const submitButton = screen.getByTestId("CourseForm-submit");
+
+    fireEvent.change(psIdField, { target: { value: ''} });
+    fireEvent.change(enrollCdField, { target: { value: "00026" } });
+
+    expect(submitButton).toBeInTheDocument();
+
+    fireEvent.click(submitButton);
+
+    await screen.findByTestId("PSCourseCreate-Error");
+    const PSError = screen.getByTestId("PSCourseCreate-Error");
+    expect(PSError).toBeInTheDocument();
+
+
+    expect(
+      await screen.queryByText(
+        /Please select a personal schedule or create a new one./,
+      ),
+    ).not.toBeInTheDocument();
+
+    expect(
+        screen.queryByText(
+          /EnrollCd: 00026 is invalid, (enrollCd must be valid, numeric, and no more than five digits)/,
+        ),
+      ).not.toBeInTheDocument();
+
+  });
+  
+  
 });
+
