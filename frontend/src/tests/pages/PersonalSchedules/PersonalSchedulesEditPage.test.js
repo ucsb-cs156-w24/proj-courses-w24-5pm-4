@@ -122,9 +122,9 @@ describe("PersonalSchedulesEditPage tests", () => {
           hostedDomain: "ucsb.edu",
           admin: true,
         },
-        description: "My Plan for Fall",
-        quarter: "20222",
-        name: "Fall Courses",
+        description: "My Plan for Winter",
+        quarter: "20221",
+        name: "Winter Courses",
       });
     });
 
@@ -156,8 +156,8 @@ describe("PersonalSchedulesEditPage tests", () => {
       const descriptionField = screen.getByTestId(
         "PersonalScheduleForm-description",
       );
-      const quarterField = document.querySelector(
-        "#PersonalScheduleForm-quarter",
+      const quarterField = screen.getByTestId(
+        "PersonalScheduleForm-quarter",
       );
       const submitButton = screen.getByTestId("PersonalScheduleForm-submit");
 
@@ -168,20 +168,19 @@ describe("PersonalSchedulesEditPage tests", () => {
       expect(descriptionField).toBeInTheDocument();
       expect(descriptionField).toHaveValue("My Winter Courses");
       expect(quarterField).toBeInTheDocument();
-
+      expect(quarterField).toHaveValue("W22")
       expect(submitButton).toHaveTextContent("Update");
 
-      fireEvent.change(nameField, { target: { value: "Fall Courses" } });
+      fireEvent.change(nameField, { target: { value: "Winter Courses" } });
       fireEvent.change(descriptionField, {
-        target: { value: "My Plan for Fall" },
+        target: { value: "My Plan for Winter" },
       });
-      fireEvent.change(quarterField, { target: { value: "20222" } });
 
       fireEvent.click(submitButton);
 
       await waitFor(() => expect(mockToast).toBeCalled());
       expect(mockToast).toBeCalledWith(
-        "PersonalSchedule Updated - id: 17 name: Fall Courses",
+        "PersonalSchedule Updated - id: 17 name: Winter Courses",
       );
 
       expect(mockNavigate).toBeCalledWith({ to: "/personalschedules/list" });
@@ -204,9 +203,9 @@ describe("PersonalSchedulesEditPage tests", () => {
             hostedDomain: "ucsb.edu",
             admin: true,
           },
-          name: "Fall Courses",
-          description: "My Plan for Fall",
-          quarter: "20222",
+          name: "Winter Courses",
+          description: "My Plan for Winter",
+          quarter: "20221",
         }),
       ); // posted object
     });

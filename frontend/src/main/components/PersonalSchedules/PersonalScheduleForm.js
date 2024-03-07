@@ -26,9 +26,17 @@ function PersonalScheduleForm({
   } = useForm({ defaultValues: initialPersonalSchedule || {} });
   // Stryker restore all
   const navigate = useNavigate();
-  const [quarter, setQuarter] = useState({
-    yyyyq: initialPersonalSchedule?.quarter,
-  });
+  const [quarter, setQuarter] = useState(
+    {
+      quarters: quarters,
+    }.quarters[0],
+  );
+  const quarterMap = {
+    '1': 'W',
+    '2': 'S',
+    '3': 'M',
+    '4': 'F'
+  }
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
       {initialPersonalSchedule && (
@@ -80,7 +88,20 @@ function PersonalScheduleForm({
           {errors.description?.message}
         </Form.Control.Feedback>
       </Form.Group>
-      <Form.Group className="mb-3" data-testid="PersonalScheduleForm-quarter">
+      
+      {initialPersonalSchedule ? (
+        <Form.Group className="mb-3">
+          <Form.Label htmlFor="quarter">Quarter</Form.Label>
+          <Form.Control
+            data-testid="PersonalScheduleForm-quarter"
+            id="quarter"
+            type="text"
+            {...register("quarter")}
+            value={quarterMap[initialPersonalSchedule.quarter.substring(4,5)] + initialPersonalSchedule.quarter.substring(2,4)}
+            disabled
+          />
+        </Form.Group>
+      ) : (<Form.Group className="mb-3" data-testid="PersonalScheduleForm-quarter">
         <SingleQuarterDropdown
           quarter={quarter}
           setQuarter={setQuarter}
@@ -88,7 +109,7 @@ function PersonalScheduleForm({
           label={"Quarter"}
           quarters={quarters}
         />
-      </Form.Group>
+      </Form.Group>)}
 
       <Button type="submit" data-testid="PersonalScheduleForm-submit">
         {buttonLabel}
