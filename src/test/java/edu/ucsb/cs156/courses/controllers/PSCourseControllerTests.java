@@ -1304,8 +1304,8 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     User thisUser = currentUserService.getCurrentUser().getUser();
 
-    PSCourse p1 = PSCourse.builder().enrollCd("08250").psId(13L).user(thisUser).id(1L).courseName("CMPSC 154 ").quarter("W22").schduleName("Test").build();
-    PSCourse p2 = PSCourse.builder().enrollCd("08276").psId(13L).user(thisUser).id(2L).courseName("CMPSC 154 ").quarter("W22").schduleName("Test").build();
+    PSCourse p1 = PSCourse.builder().enrollCd("08250").psId(13L).user(thisUser).id(1L).build();
+    PSCourse p2 = PSCourse.builder().enrollCd("08276").psId(13L).user(thisUser).id(2L).build();
 
 
     ArrayList<PSCourse> expectedCourses = new ArrayList<>();
@@ -1313,12 +1313,6 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(coursesRepository.findAllByUserId(thisUser.getId())).thenReturn(expectedCourses);
 
     // act
-    // MvcResult test =
-    // mockMvc
-    //     .perform(post("/api/courses/post?enrollCd=08276&psId=13").with(csrf()))
-    //     .andExpect(status().isOk())
-    //     .andReturn();
-
     MvcResult response =
         mockMvc.perform(get("/api/courses/user/all")).andExpect(status().isOk()).andReturn();
 
