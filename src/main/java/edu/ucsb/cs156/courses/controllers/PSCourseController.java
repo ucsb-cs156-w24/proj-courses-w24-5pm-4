@@ -3,6 +3,8 @@ package edu.ucsb.cs156.courses.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+
+import edu.ucsb.cs156.courses.documents.Course;
 import edu.ucsb.cs156.courses.entities.PSCourse;
 import edu.ucsb.cs156.courses.entities.PersonalSchedule;
 import edu.ucsb.cs156.courses.entities.User;
@@ -41,6 +43,7 @@ public class PSCourseController extends ApiController {
   @Autowired PersonalScheduleRepository personalScheduleRepository;
   @Autowired UCSBCurriculumService ucsbCurriculumService;
   @Autowired ObjectMapper mapper;
+  @Autowired private ObjectMapper objectMapper;
 
   @Operation(summary = "List all courses (admin)")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -56,6 +59,40 @@ public class PSCourseController extends ApiController {
   public Iterable<PSCourse> thisUsersCourses() {
     CurrentUser currentUser = getCurrentUser();
     Iterable<PSCourse> courses = coursesRepository.findAllByUserId(currentUser.getUser().getId());
+    return courses;
+  }
+
+  @Operation(summary = "List all courses (user)")
+  @PreAuthorize("hasRole('ROLE_USER')")
+  @GetMapping("/user/all/more")
+  public Iterable<PSCourse> thisUsersCoursesMore() throws JsonProcessingException{
+  // public ArrayList<PSCourse> UsersCoursesByPsId(@Parameter(name = "psId") @RequestParam Long psId)
+  //     throws JsonProcessingException {
+    CurrentUser currentUser = getCurrentUser();
+    Iterable<PSCourse> courses = coursesRepository.findAllByUserId(currentUser.getUser().getId());
+      for (PSCourse crs : courses) {
+        User u = crs.getUser();
+        Long psId = crs.getPsId();
+        PersonalSchedule ps =
+          personalScheduleRepository
+              .findByIdAndUser(psId, u)
+              .orElseThrow(() -> new EntityNotFoundException(PersonalSchedule.class, psId));
+        String qtr = ps.getQuarter();
+        String responseBody = ucsbCurriculumService.getJSONbyQtrEnrollCd(qtr, crs.getEnrollCd());
+        Course course = objectMapper.readValue(responseBody, Course.class);
+    
+
+        ArrayList<String> quarters = new ArrayList<>();
+        quarters.add("W");
+        quarters.add("S");
+        quarters.add("M");
+        quarters.add("F");
+
+        String quart = quarters.get(Integer.parseInt(qtr.substring(4)) - 1) +qtr.substring(2,4); 
+        crs.setQuarter(quart);
+        crs.setCourseName(course.getCourseId());
+        crs.setSchduleName(ps.getName());
+      }
     return courses;
   }
 
@@ -107,10 +144,7 @@ public class PSCourseController extends ApiController {
   @PostMapping("/post")
   public ArrayList<PSCourse> postCourses(
       @Parameter(name = "enrollCd") @RequestParam String enrollCd,
-      @Parameter(name = "psId") @RequestParam Long psId,
-      @Parameter(name = "courseName") @RequestParam String courseName,
-      @Parameter(name = "schduleName") @RequestParam String schduleName,
-      @Parameter(name = "quarter") @RequestParam String quarter)
+      @Parameter(name = "psId") @RequestParam Long psId)
       throws JsonProcessingException {
     CurrentUser currentUser = getCurrentUser();
     log.info("currentUser={}", currentUser);
@@ -152,15 +186,32 @@ public class PSCourseController extends ApiController {
 
     ArrayList<PSCourse> savedCourses = new ArrayList<>();
 
+    // String quarter_in_yyyyq = checkPsId.getQuarter();
+
+    // String responseBody = ucsbCurriculumService.getJSONbyQtrEnrollCd(quarter_in_yyyyq, enrollCd);
+    // Course course = objectMapper.readValue(responseBody, Course.class);
+
+    // String courseName = course.getCourseId();
+    // String schduleName = checkPsId.getName();
+
+    // // String quarter;
+    // ArrayList<String> quarters = new ArrayList<>();
+    // quarters.add("W");
+    // quarters.add("S");
+    // quarters.add("M");
+    // quarters.add("F");
+
+    // String quarter = quarters.get(Integer.parseInt(quarter_in_yyyyq.substring(4)) - 1) +quarter_in_yyyyq.substring(2,4); 
+  
     if (!enrollCdPrimary.equals(enrollCd)) {
       String enrollCdSecondary = enrollCd;
       PSCourse secondary = new PSCourse();
       secondary.setUser(currentUser.getUser());
       secondary.setEnrollCd(enrollCdSecondary);
       secondary.setPsId(psId);
-      secondary.setCourseName(courseName);
-      secondary.setSchduleName(schduleName);
-      secondary.setQuarter(quarter);
+      // secondary.setCourseName(courseName);
+      // secondary.setSchduleName(schduleName);
+      // secondary.setQuarter(quarter);
       PSCourse savedSecondary = coursesRepository.save(secondary);
       savedCourses.add(savedSecondary);
     } else if (hasSecondary) {
@@ -173,9 +224,7 @@ public class PSCourseController extends ApiController {
     primary.setUser(currentUser.getUser());
     primary.setEnrollCd(enrollCdPrimary);
     primary.setPsId(psId);
-    primary.setCourseName(courseName);
-    primary.setSchduleName(schduleName);
-    primary.setQuarter(quarter);
+  
     PSCourse savedPrimary = coursesRepository.save(primary);
     savedCourses.add(savedPrimary);
     return savedCourses;
@@ -262,10 +311,6 @@ public class PSCourseController extends ApiController {
     courses.setEnrollCd(incomingCourses.getEnrollCd());
     courses.setPsId(incomingCourses.getPsId());
 
-    courses.setCourseName(incomingCourses.getCourseName());
-    courses.setSchduleName(incomingCourses.getSchduleName());
-    courses.setQuarter(incomingCourses.getQuarter());
-
     coursesRepository.save(courses);
 
     return courses;
@@ -285,9 +330,6 @@ public class PSCourseController extends ApiController {
     courses.setEnrollCd(incomingCourses.getEnrollCd());
     courses.setPsId(incomingCourses.getPsId());
 
-    courses.setCourseName(incomingCourses.getCourseName());
-    courses.setSchduleName(incomingCourses.getSchduleName());
-    courses.setQuarter(incomingCourses.getQuarter());
 
     coursesRepository.save(courses);
 

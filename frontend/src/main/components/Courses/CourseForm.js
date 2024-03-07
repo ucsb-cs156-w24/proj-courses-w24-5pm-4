@@ -7,7 +7,7 @@ import { useBackend } from "main/utils/useBackend";
 
 function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
   // Stryker disable all
-  const yyyyq_regex = /((19)|(20))\d{2}[1-4]/i;
+  // const yyyyq_regex = /((19)|(20))\d{2}[1-4]/i;
   const {
     register,
     formState: { errors },
@@ -62,7 +62,7 @@ function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
         </Form.Group>
       )}
 
-      <Form.Group className="mb-3">
+      {/* <Form.Group className="mb-3">
         <Form.Label htmlFor="courseName">Course Name</Form.Label>
         <Form.Control
           data-testid="CourseForm-courseName"
@@ -76,7 +76,7 @@ function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
         <Form.Control.Feedback type="invalid">
           {errors.courseName?.message}
         </Form.Control.Feedback>
-      </Form.Group>
+      </Form.Group> */}
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="enrollCd">Enrollment Code</Form.Label>
@@ -103,7 +103,7 @@ function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
         />
       </Form.Group>
 
-      <Form.Group className="mb-3">
+      {/* <Form.Group className="mb-3">
         <Form.Label htmlFor="schduleName">Schdule Name</Form.Label>
         <Form.Control
           data-testid="CourseForm-schduleName"
@@ -117,9 +117,9 @@ function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
         <Form.Control.Feedback type="invalid">
           {errors.schduleName?.message}
         </Form.Control.Feedback>
-      </Form.Group>
+      </Form.Group> */}
 
-      <Form.Group className="mb-3">
+      {/* <Form.Group className="mb-3">
         <Form.Label htmlFor="quarter">Quarter</Form.Label>
         <Form.Control
           data-testid="CourseForm-quarter"
@@ -133,7 +133,7 @@ function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
           {errors.quarter?.type === "pattern" &&
             "Quarter must be in the format YYYYQ, e.g. 20224 for Fall 2022"}
         </Form.Control.Feedback>
-      </Form.Group>
+      </Form.Group> */}
 
       <Button type="submit" data-testid="CourseForm-submit">
         {buttonLabel}
