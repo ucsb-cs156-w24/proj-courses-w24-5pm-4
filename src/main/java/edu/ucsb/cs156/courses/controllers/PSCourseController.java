@@ -80,8 +80,6 @@ public class PSCourseController extends ApiController {
         String qtr = ps.getQuarter();
         String responseBody = ucsbCurriculumService.getJSONbyQtrEnrollCd(qtr, crs.getEnrollCd());
         Course course = objectMapper.readValue(responseBody, Course.class);
-    
-
         ArrayList<String> quarters = new ArrayList<>();
         quarters.add("W");
         quarters.add("S");
@@ -95,6 +93,35 @@ public class PSCourseController extends ApiController {
       }
     return courses;
   }
+
+
+  // @Operation(summary = "List all courses (user)")
+  // @PreAuthorize("hasRole('ROLE_USER')")
+  // @GetMapping("/user/all/more")
+  // public Iterable<PSCourse> thisUsersCoursesMore() throws JsonProcessingException{
+
+  //   // Iterable<PSCourse> courses = coursesRepository.findAllByUserId(currentUser.getUser().getId());
+  //   User us = getCurrentUser().getUser();
+  //   Iterable<PSCourse> courses = coursesRepository.findAllByUserId(us.getId());
+  //   ArrayList<PSCourse> Courses = new ArrayList<PSCourse>();
+  //   ArrayList<String> jsons = new ArrayList<String>();
+  //   // Iterable<PSCourse> courses = coursesRepository.findAllByPsId(psId);
+  //   for (PSCourse crs : courses) {
+  //     PersonalSchedule ps =
+  //     personalScheduleRepository
+  //         .findByIdAndUser(crs.getPsId(), us)
+  //         .orElseThrow(() -> new EntityNotFoundException(PersonalSchedule.class, crs.getPsId()));
+
+  //     User u = crs.getUser();
+  //     String qtr = ps.getQuarter();
+  //     String responseBody = ucsbCurriculumService.getJSONbyQtrEnrollCd(qtr, crs.getEnrollCd());
+  //     jsons.add(responseBody);
+  //     PSCourse Course = objectMapper.readValue(responseBody, PSCourse.class);
+  //     Courses.add(Course);
+  //   }
+  //   return Courses;
+  // }
+  
 
   @Operation(summary = "List all courses for a specified psId (admin)")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
