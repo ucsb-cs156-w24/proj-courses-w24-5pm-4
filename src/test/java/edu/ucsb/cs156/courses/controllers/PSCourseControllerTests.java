@@ -1301,7 +1301,6 @@ public class PSCourseControllerTests extends ControllerTestCase {
   public void api_courses_all__user_logged_in__returns_courses_more() throws Exception {
 
     // arrange
-
     User thisUser = currentUserService.getCurrentUser().getUser();
 
     PersonalSchedule ps1 =
@@ -1310,7 +1309,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
             .description("Test")
             .quarter("20221")
             .user(thisUser)
-            .id(1L)
+            .id(13L)
             .build();
     when(personalScheduleRepository.findByIdAndUser(eq(1L), eq(thisUser)))
         .thenReturn(Optional.of(ps1));
@@ -1318,7 +1317,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     PSCourse p1 = PSCourse.builder()
         .enrollCd("08250")
         .psId(13L)
-        .courseName("CMPSC 154")
+        .courseName("CMPSC 154 ")
         .schduleName("Test")
         .quarter("20221")
         .user(thisUser)
@@ -1327,7 +1326,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     PSCourse p2 = PSCourse.builder()
         .enrollCd("08276")
         .psId(13L)
-        .courseName("CMPSC 154")
+        .courseName("CMPSC 154 ")
         .schduleName("Test")
         .quarter("20221")
         .user(thisUser)
@@ -1341,7 +1340,8 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     // act
     MvcResult response =
-        mockMvc.perform(get("/api/courses/user/all/more")).andExpect(status().isOk()).andReturn();
+        mockMvc.perform(get("/api/courses/user/all/more"))
+            .andExpect(status().isOk()).andReturn();
 
     // assert
 
