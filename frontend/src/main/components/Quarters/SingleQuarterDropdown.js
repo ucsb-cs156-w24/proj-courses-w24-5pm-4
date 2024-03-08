@@ -14,6 +14,7 @@ import { Form } from "react-bootstrap";
 //  { yyyyq :"20222", qyy: "S22"}]
 
 function SingleQuarterDropdown({
+  quarter,
   quarters,
   setQuarter,
   controlId,
@@ -24,10 +25,10 @@ function SingleQuarterDropdown({
   if (!localSearchQuarter) {
     localStorage.setItem(controlId, quarters[0].yyyyq);
   }
-
   const [quarterState, setQuarterState] = useState(
     // Stryker disable next-line all : not sure how to test/mock local storage
-    localSearchQuarter || quarters[0].yyyyq,
+    //localSearchQuarter || quarters[0].yyyyq,
+    quarter.yyyyq || localSearchQuarter || quarters[0].yyyyq,
   );
 
   const handleQuarterOnChange = (event) => {
