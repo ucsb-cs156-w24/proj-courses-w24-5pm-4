@@ -1304,12 +1304,23 @@ public class PSCourseControllerTests extends ControllerTestCase {
 
     User thisUser = currentUserService.getCurrentUser().getUser();
 
+    PersonalSchedule ps1 =
+        PersonalSchedule.builder()
+            .name("Test")
+            .description("Test")
+            .quarter("20221")
+            .user(thisUser)
+            .id(1L)
+            .build();
+    when(personalScheduleRepository.findByIdAndUser(eq(1L), eq(thisUser)))
+        .thenReturn(Optional.of(ps1));
+   
     PSCourse p1 = PSCourse.builder()
         .enrollCd("08250")
         .psId(13L)
         .courseName("CMPSC 154")
         .schduleName("Test")
-        .quarter("W22")
+        .quarter("20221")
         .user(thisUser)
         .id(1L)
         .build();
@@ -1318,7 +1329,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
         .psId(13L)
         .courseName("CMPSC 154")
         .schduleName("Test")
-        .quarter("W22")
+        .quarter("20221")
         .user(thisUser)
         .id(2L)
         .build();
