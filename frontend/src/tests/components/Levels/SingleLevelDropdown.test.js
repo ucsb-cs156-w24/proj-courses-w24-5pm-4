@@ -45,8 +45,8 @@ describe("SingleLevelDropdown tests", () => {
 
     expect(await screen.findByLabelText("Course Level")).toBeInTheDocument();
     const selectLevel = screen.getByLabelText("Course Level");
-    userEvent.selectOptions(selectLevel, "U");
-    expect(setLevel).toBeCalledWith("U");
+    userEvent.selectOptions(selectLevel, "G");
+    expect(setLevel).toBeCalledWith("G");
   });
 
   test("if I pass a non-null onChange, it gets called when the value changes", async () => {
@@ -63,14 +63,14 @@ describe("SingleLevelDropdown tests", () => {
 
     expect(await screen.findByLabelText("Course Level")).toBeInTheDocument();
     const selectLevel = screen.getByLabelText("Course Level");
-    userEvent.selectOptions(selectLevel, "U");
+    userEvent.selectOptions(selectLevel, "L");
 
-    await waitFor(() => expect(setLevel).toBeCalledWith("U"));
+    await waitFor(() => expect(setLevel).toBeCalledWith("L"));
     await waitFor(() => expect(onChange).toBeCalledTimes(1));
 
     // x.mock.calls[0][0] is the first argument of the first call to the jest.fn() mock x
     const event = onChange.mock.calls[0][0];
-    expect(event.target.value).toBe("U");
+    expect(event.target.value).toBe("L");
   });
 
   test("default label is Course Level", async () => {
@@ -102,7 +102,7 @@ describe("SingleLevelDropdown tests", () => {
 
   test("when localstorage has a value, it is passed to useState", async () => {
     const getItemSpy = jest.spyOn(Storage.prototype, "getItem");
-    getItemSpy.mockImplementation(() => "U");
+    getItemSpy.mockImplementation(() => "S");
 
     const setLevelStateSpy = jest.fn();
     useState.mockImplementation((x) => [x, setLevelStateSpy]);
@@ -116,7 +116,7 @@ describe("SingleLevelDropdown tests", () => {
       />,
     );
 
-    await waitFor(() => expect(useState).toBeCalledWith("U"));
+    await waitFor(() => expect(useState).toBeCalledWith("S"));
   });
 
   test("when localstorage has no value, U is passed to useState", async () => {

@@ -79,7 +79,7 @@ describe("Course Details Index Page tests", () => {
     );
     // await waitFor(() => {
     expect(
-      screen.getByText("Course Details for CHEM 184 W22!"),
+      screen.getByText("Course Details for CHEM 184 W22"),
     ).toBeInTheDocument();
     // });
     expect(screen.getByText("Enroll Code")).toBeInTheDocument();
@@ -96,5 +96,11 @@ describe("Course Details Index Page tests", () => {
     expect(screen.getByText("T R")).toBeInTheDocument();
     expect(screen.getByText("Time")).toBeInTheDocument();
     expect(screen.getByText("2:00 PM - 3:15 PM")).toBeInTheDocument();
+    expect(screen.getByText("Course Description")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Lectures and exercises on the literature and other information resources of use in chemistry.",
+      ),
+    ).toBeInTheDocument();
   });
 });

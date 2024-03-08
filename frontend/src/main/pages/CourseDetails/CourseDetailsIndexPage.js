@@ -3,6 +3,7 @@ import _BasicCourseTable from "main/components/Courses/BasicCourseTable";
 import { useParams } from "react-router-dom";
 import { useBackend, _useBackendMutation } from "main/utils/useBackend";
 import CourseDetailsTable from "main/components/CourseDetails/CourseDetailsTable";
+import CourseDescriptionComponent from "main/components/CourseDetails/CourseDescriptionComponent";
 import { yyyyqToQyy } from "main/utils/quarterUtilities";
 
 export default function CourseDetailsIndexPage() {
@@ -30,11 +31,12 @@ export default function CourseDetailsIndexPage() {
       <div className="pt-2">
         {moreDetails && moreDetails.courseId && (
           <h5>
-            Course Details for {moreDetails.courseId} {yyyyqToQyy(qtr)}!
+            Course Details for {moreDetails.courseId} {yyyyqToQyy(qtr)}
           </h5>
         )}
 
         {moreDetails && <CourseDetailsTable details={[moreDetails]} />}
+        {moreDetails && <CourseDescriptionComponent course={moreDetails} />}
       </div>
     </BasicLayout>
   );
