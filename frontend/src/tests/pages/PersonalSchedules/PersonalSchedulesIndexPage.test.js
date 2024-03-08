@@ -212,6 +212,5 @@ describe("PersonalSchedulesIndexPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-
   });
 });
