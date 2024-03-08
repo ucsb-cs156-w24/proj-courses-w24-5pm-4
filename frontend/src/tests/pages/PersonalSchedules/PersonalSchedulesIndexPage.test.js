@@ -6,6 +6,7 @@ import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "jest-mock-console";
 
 import PersonalSchedulesIndexPage from "main/pages/PersonalSchedules/PersonalSchedulesIndexPage";
+import PersonalSchedulesCreatePage from "main/pages/PersonalSchedules/PersonalSchedulesCreatePage";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { personalScheduleFixtures } from "fixtures/personalScheduleFixtures";
@@ -200,5 +201,17 @@ describe("PersonalSchedulesIndexPage tests", () => {
       );
     });
   });
-  test("what happens when you click add new schedule on index page, admin", async () => {});
+  test("what happens when you click add new schedule on index page, admin", async () => {
+    setupAdminUser();
+    const queryClient = new QueryClient();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <PersonalSchedulesCreatePage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+  });
 });
