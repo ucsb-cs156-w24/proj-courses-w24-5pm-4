@@ -79,7 +79,7 @@ describe("CoursesIndexPage tests", () => {
     setupUserOnly();
     const queryClient = new QueryClient();
     axiosMock
-      .onGet("/api/courses/user/all")
+      .onGet("/api/courses/user/all/more")
       .reply(200, coursesFixtures.twoCourses);
 
     render(
@@ -104,7 +104,7 @@ describe("CoursesIndexPage tests", () => {
     setupAdminUser();
     const queryClient = new QueryClient();
     axiosMock
-      .onGet("/api/courses/user/all")
+      .onGet("/api/courses/user/all/more")
       .reply(200, coursesFixtures.twoCourses);
 
     render(
@@ -159,7 +159,7 @@ describe("CoursesIndexPage tests", () => {
     setupAdminUser();
     const queryClient = new QueryClient();
     axiosMock
-      .onGet("/api/courses/user/all")
+      .onGet("/api/courses/user/all/more")
       .reply(200, coursesFixtures.twoCourses);
     axiosMock
       .onDelete("/api/courses/user")

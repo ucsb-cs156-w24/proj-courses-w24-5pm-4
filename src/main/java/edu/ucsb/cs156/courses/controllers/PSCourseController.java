@@ -178,22 +178,6 @@ public class PSCourseController extends ApiController {
 
     ArrayList<PSCourse> savedCourses = new ArrayList<>();
 
-    // String quarter_in_yyyyq = checkPsId.getQuarter();
-
-    // String responseBody = ucsbCurriculumService.getJSONbyQtrEnrollCd(quarter_in_yyyyq, enrollCd);
-    // Course course = objectMapper.readValue(responseBody, Course.class);
-
-    // String courseName = course.getCourseId();
-    // String schduleName = checkPsId.getName();
-
-    // // String quarter;
-    // ArrayList<String> quarters = new ArrayList<>();
-    // quarters.add("W");
-    // quarters.add("S");
-    // quarters.add("M");
-    // quarters.add("F");
-
-    // String quarter = quarters.get(Integer.parseInt(quarter_in_yyyyq.substring(4)) - 1) +quarter_in_yyyyq.substring(2,4); 
   
     if (!enrollCdPrimary.equals(enrollCd)) {
       String enrollCdSecondary = enrollCd;
@@ -201,9 +185,6 @@ public class PSCourseController extends ApiController {
       secondary.setUser(currentUser.getUser());
       secondary.setEnrollCd(enrollCdSecondary);
       secondary.setPsId(psId);
-      // secondary.setCourseName(courseName);
-      // secondary.setSchduleName(schduleName);
-      // secondary.setQuarter(quarter);
       PSCourse savedSecondary = coursesRepository.save(secondary);
       savedCourses.add(savedSecondary);
     } else if (hasSecondary) {

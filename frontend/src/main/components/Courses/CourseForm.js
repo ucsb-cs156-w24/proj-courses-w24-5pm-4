@@ -62,22 +62,6 @@ function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
         </Form.Group>
       )}
 
-      {/* <Form.Group className="mb-3">
-        <Form.Label htmlFor="courseName">Course Name</Form.Label>
-        <Form.Control
-          data-testid="CourseForm-courseName"
-          id="courseName"
-          type="text"
-          isInvalid={Boolean(errors.courseName)}
-          {...register("courseName", {
-            required: "Course Name is required.",
-          })}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.courseName?.message}
-        </Form.Control.Feedback>
-      </Form.Group> */}
-
       <Form.Group className="mb-3">
         <Form.Label htmlFor="enrollCd">Enrollment Code</Form.Label>
         <Form.Control
@@ -102,38 +86,6 @@ function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
           controlId={"CourseForm-psId"}
         />
       </Form.Group>
-
-      {/* <Form.Group className="mb-3">
-        <Form.Label htmlFor="schduleName">Schdule Name</Form.Label>
-        <Form.Control
-          data-testid="CourseForm-schduleName"
-          id="schduleName"
-          type="text"
-          isInvalid={Boolean(errors.enrollCd)}
-          {...register("schduleName", {
-            required: "Schdule Name is required.",
-          })}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.schduleName?.message}
-        </Form.Control.Feedback>
-      </Form.Group> */}
-
-      {/* <Form.Group className="mb-3">
-        <Form.Label htmlFor="quarter">Quarter</Form.Label>
-        <Form.Control
-          data-testid="CourseForm-quarter"
-          id="quarter"
-          type="text"
-          isInvalid={Boolean(errors.quarter)}
-          {...register("quarter", { required: true, pattern: yyyyq_regex })}
-        />
-        <Form.Control.Feedback type="invalid">
-          {errors.quarter && "Quarter is required."}
-          {errors.quarter?.type === "pattern" &&
-            "Quarter must be in the format YYYYQ, e.g. 20224 for Fall 2022"}
-        </Form.Control.Feedback>
-      </Form.Group> */}
 
       <Button type="submit" data-testid="CourseForm-submit">
         {buttonLabel}

@@ -24,9 +24,9 @@ describe("CourseForm tests", () => {
 
     expect(await screen.findByText(/Schedule/)).toBeInTheDocument();
     expect(screen.getByText(/Enrollment Code/)).toBeInTheDocument();
-    expect(screen.getByText(/Course Name/)).toBeInTheDocument();
-    expect(screen.getByText(/Schdule Name/)).toBeInTheDocument();
-    expect(screen.getByText(/Quarter/)).toBeInTheDocument();
+    // expect(screen.getByText(/Course Name/)).toBeInTheDocument();
+    // expect(screen.getByText(/Schdule Name/)).toBeInTheDocument();
+    // expect(screen.getByText(/Quarter/)).toBeInTheDocument();
     expect(screen.getByText(/Create/)).toBeInTheDocument();
   });
 
@@ -62,9 +62,9 @@ describe("CourseForm tests", () => {
     expect(
       await screen.findByText(/Enroll Code is required./),
     ).toBeInTheDocument();
-    screen.getByText(/Course Name is required./);
-    screen.getByText(/Schdule Name is required./);
-    screen.getByText(/Quarter is required./);
+    // screen.getByText(/Course Name is required./);
+    // screen.getByText(/Schdule Name is required./);
+    // screen.getByText(/Quarter is required./);
   });
   test("No Error messages on good input", async () => {
     const mockSubmitAction = jest.fn();
@@ -82,16 +82,16 @@ describe("CourseForm tests", () => {
 
     const psId = document.querySelector("#CourseForm-psId");
     const enrollCd = screen.getByTestId("CourseForm-enrollCd");
-    const courseName = screen.getByTestId("CourseForm-courseName");
-    const schduleName = screen.getByTestId("CourseForm-schduleName");
-    const quarter = screen.getByTestId("CourseForm-quarter");
+    // const courseName = screen.getByTestId("CourseForm-courseName");
+    // const schduleName = screen.getByTestId("CourseForm-schduleName");
+    // const quarter = screen.getByTestId("CourseForm-quarter");
     const submitButton = screen.getByTestId("CourseForm-submit");
 
     fireEvent.change(psId, { target: { value: 13 } });
     fireEvent.change(enrollCd, { target: { value: "20124" } });
-    fireEvent.change(courseName, { target: { value: "MATH" } });
-    fireEvent.change(schduleName, { target: { value: "cgaucho's schdule" } });
-    fireEvent.change(quarter, { target: { value: 20222 } });
+    // fireEvent.change(courseName, { target: { value: "MATH" } });
+    // fireEvent.change(schduleName, { target: { value: "cgaucho's schdule" } });
+    // fireEvent.change(quarter, { target: { value: 20222 } });
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
@@ -124,27 +124,27 @@ describe("CourseForm tests", () => {
   });
 });
 
-test("Correct Error messsages on bad input", async () => {
-  const queryClient = new QueryClient();
-  render(
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <CourseForm />
-      </Router>
-    </QueryClientProvider>,
-  );
-  await screen.findByTestId("CourseForm-quarter");
-  const quarterField = screen.getByTestId("CourseForm-quarter");
-  const submitButton = screen.getByTestId("CourseForm-submit");
+// test("Correct Error messsages on bad input", async () => {
+//   const queryClient = new QueryClient();
+//   render(
+//     <QueryClientProvider client={queryClient}>
+//       <Router>
+//         <CourseForm />
+//       </Router>
+//     </QueryClientProvider>,
+//   );
+//   await screen.findByTestId("CourseForm-submit");
+//   // const quarterField = screen.getByTestId("CourseForm-quarter");
+//   const submitButton = screen.getByTestId("CourseForm-submit");
 
-  fireEvent.change(quarterField, { target: { value: "bad-input" } });
+//   // fireEvent.change(quarterField, { target: { value: "bad-input" } });
 
-  fireEvent.click(submitButton);
+//   fireEvent.click(submitButton);
 
-  await screen.findByText(
-    /Quarter must be in the format YYYYQ, e.g. 20224 for Fall 2022/,
-  );
-});
+//   await screen.findByText(
+//     /Quarter must be in the format YYYYQ, e.g. 20224 for Fall 2022/,
+//   );
+// });
 
 // test("that the correct validations are performed", async () => {
 //   const queryClient = new QueryClient();

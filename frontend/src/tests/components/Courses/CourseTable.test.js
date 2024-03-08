@@ -164,6 +164,10 @@ describe("UserTable tests", () => {
       "26",
     );
 
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-quarter`),
+    ).toHaveTextContent("W22");
+
     const deleteButton = screen.getByTestId(
       `CourseTable-cell-row-0-col-Delete-button`,
     );

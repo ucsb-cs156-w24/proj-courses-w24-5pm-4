@@ -61,11 +61,11 @@ describe("CoursesCreatePage tests", () => {
     const courses = [
       {
         id: "17",
-        courseName: "CMPSC",
-        schduleName: "torry's schdule",
+        // courseName: "CMPSC",
+        // schduleName: "torry's schdule",
         psId: 13,
         enrollCd: "08250",
-        quarter: 20221,
+        // quarter: 20221,
       },
     ];
 
@@ -84,20 +84,20 @@ describe("CoursesCreatePage tests", () => {
     ).toBeInTheDocument();
 
     const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
-    const courseNameField = screen.getByTestId("CourseForm-courseName");
-    const schduleNameField = screen.getByTestId("CourseForm-schduleName");
-    const quarterField = screen.getByTestId("CourseForm-quarter");
+    // const courseNameField = screen.getByTestId("CourseForm-courseName");
+    // const schduleNameField = screen.getByTestId("CourseForm-schduleName");
+    // const quarterField = screen.getByTestId("CourseForm-quarter");
     const psIdField = document.querySelector("#CourseForm-psId");
     const submitButton = screen.getByTestId("CourseForm-submit");
 
     fireEvent.change(psIdField, { target: { value: 13 } });
     localStorage.setItem("CourseForm-psId", "13");
     fireEvent.change(enrollCdField, { target: { value: "08250" } });
-    fireEvent.change(courseNameField, { target: { value: "CMPSC" } });
-    fireEvent.change(schduleNameField, {
-      target: { value: "torry's schdule" },
-    });
-    fireEvent.change(quarterField, { target: { value: "20221" } });
+    // fireEvent.change(courseNameField, { target: { value: "CMPSC" } });
+    // fireEvent.change(schduleNameField, {
+    //   target: { value: "torry's schdule" },
+    // });
+    // fireEvent.change(quarterField, { target: { value: "20221" } });
     expect(submitButton).toBeInTheDocument();
 
     fireEvent.click(submitButton);
@@ -109,10 +109,10 @@ describe("CoursesCreatePage tests", () => {
     expect(localStorage.getItem("CourseForm-psId")).toBe("13");
     expect(axiosMock.history.post[0].params).toEqual({
       psId: "13",
-      courseName: "CMPSC",
-      schduleName: "torry's schdule",
+      // courseName: "CMPSC",
+      // schduleName: "torry's schdule",
       enrollCd: "08250",
-      quarter: "20221",
+      // quarter: "20221",
     });
 
     expect(mockToast).toBeCalledWith(
@@ -136,18 +136,18 @@ describe("CoursesCreatePage tests", () => {
 
     const psIdField = document.querySelector("#CourseForm-psId");
     const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
-    const courseNameField = screen.getByTestId("CourseForm-courseName");
-    const schduleNameField = screen.getByTestId("CourseForm-schduleName");
-    const quarterField = screen.getByTestId("CourseForm-quarter");
+    // const courseNameField = screen.getByTestId("CourseForm-courseName");
+    // const schduleNameField = screen.getByTestId("CourseForm-schduleName");
+    // const quarterField = screen.getByTestId("CourseForm-quarter");
     const submitButton = screen.getByTestId("CourseForm-submit");
 
     fireEvent.change(psIdField, { target: { value: 13 } });
     fireEvent.change(enrollCdField, { target: { value: "99881" } });
-    fireEvent.change(courseNameField, { target: { value: "CMPSC" } });
-    fireEvent.change(schduleNameField, {
-      target: { value: "torry's schdule" },
-    });
-    fireEvent.change(quarterField, { target: { value: "20221" } });
+    // fireEvent.change(courseNameField, { target: { value: "CMPSC" } });
+    // fireEvent.change(schduleNameField, {
+    //   target: { value: "torry's schdule" },
+    // });
+    // fireEvent.change(quarterField, { target: { value: "20221" } });
 
     expect(submitButton).toBeInTheDocument();
 
