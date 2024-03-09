@@ -201,7 +201,7 @@ describe("PersonalSchedulesIndexPage tests", () => {
       );
     });
   });
-  test('clicking button navigates to correct page', async () => {
+  test("clicking button navigates to correct page", async () => {
     setupUserOnly();
     const queryClient = new QueryClient();
     // Render the component with React Testing Library
@@ -212,17 +212,17 @@ describe("PersonalSchedulesIndexPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-  
+
     // Find the button you want to test
-    const button = getByText('Add Personal Schedule');
-  
+    const button = getByText("Add Personal Schedule");
+
     // Simulate a click event on the button
     fireEvent.click(button);
-  
+
     // Wait for navigation to complete
-    await waitFor(() => getByTestId('personalschedules-create'));
-  
+    await waitFor(() => getByTestId("personalschedules-create"));
+
     // Assert that the correct page is rendered
-    expect(getByTestId('personalschedules-create')).toBeInTheDocument();
+    expect(getByTestId("personalschedules-create")).toBeInTheDocument();
   });
 });
