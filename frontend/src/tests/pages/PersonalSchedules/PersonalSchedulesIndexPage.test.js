@@ -6,7 +6,6 @@ import AxiosMockAdapter from "axios-mock-adapter";
 import mockConsole from "jest-mock-console";
 
 import PersonalSchedulesIndexPage from "main/pages/PersonalSchedules/PersonalSchedulesIndexPage";
-import PersonalSchedulesCreatePage from "main/pages/PersonalSchedules/PersonalSchedulesCreatePage";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import { personalScheduleFixtures } from "fixtures/personalScheduleFixtures";
@@ -205,7 +204,7 @@ describe("PersonalSchedulesIndexPage tests", () => {
     setupUserOnly();
     const queryClient = new QueryClient();
     // Render the component with React Testing Library
-    const { getByText, getByTestId } = render(
+    render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
           <PersonalSchedulesIndexPage />
@@ -214,15 +213,20 @@ describe("PersonalSchedulesIndexPage tests", () => {
     );
 
     // Find the button you want to test
-    const button = getByText("Add Personal Schedule");
+    const button = screen.getByText("Add Personal Schedule");
 
     // Simulate a click event on the button
     fireEvent.click(button);
 
     // Wait for navigation to complete
-    await waitFor(() => getByTestId("personalschedules-create"));
+    const targetPageElement = await screen.findByTestId(
+      "personalschedules-create",
+    );
+
+    // Assert that the target page element is in the document
+    expect(targetPageElement).toBeInTheDocument();
 
     // Assert that the correct page is rendered
-    expect(getByTestId("personalschedules-create")).toBeInTheDocument();
+    expect(screen.getByTestId("personalschedules-create")).toBeInTheDocument();
   });
 });
