@@ -30,6 +30,7 @@ export default function CoursesIndexPage() {
       <Button
         variant="primary"
         href="/courses/create"
+        data-testid="appnavbar-courses-create"
         style={{ float: "right" }}
       >
         Add Course

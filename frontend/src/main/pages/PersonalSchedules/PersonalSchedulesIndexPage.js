@@ -26,6 +26,7 @@ export default function PersonalSchedulesIndexPage() {
       <Button
         variant="primary"
         href="/personalschedules/create"
+        data-testid="personalschedules-create"
         style={{ float: "right" }}
       >
         Add Personal Schedule

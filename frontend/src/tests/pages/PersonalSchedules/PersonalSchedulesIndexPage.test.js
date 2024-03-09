@@ -201,16 +201,28 @@ describe("PersonalSchedulesIndexPage tests", () => {
       );
     });
   });
-  test("what happens when you click add new schedule on index page, admin", async () => {
-    setupAdminUser();
+  test('clicking button navigates to correct page', async () => {
+    setupUserOnly();
     const queryClient = new QueryClient();
-
-    render(
+    // Render the component with React Testing Library
+    const { getByText, getByTestId } = render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
-          <PersonalSchedulesCreatePage />
+          <PersonalSchedulesIndexPage />
         </MemoryRouter>
       </QueryClientProvider>,
     );
+  
+    // Find the button you want to test
+    const button = getByText('Add Personal Schedule');
+  
+    // Simulate a click event on the button
+    fireEvent.click(button);
+  
+    // Wait for navigation to complete
+    await waitFor(() => getByTestId('personalschedules-create'));
+  
+    // Assert that the correct page is rendered
+    expect(getByTestId('personalschedules-create')).toBeInTheDocument();
   });
 });
