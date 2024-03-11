@@ -38,10 +38,9 @@ function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
 
   useEffect(() => {
     // Stryker disable all : not sure how to test/mock local storage
-    // if (localSchedule && schedules && schedules.length > 0) {
-      // schedules.find((sch) => sch === localSchedule);
-
-    // }
+    if (localSchedule && schedules && schedules.length > 0) {
+      schedules.find((sch) => sch === localSchedule);
+    }
     // Stryker restore all
 
     if (schedules && schedules.length > 0 && !localSchedule) {
