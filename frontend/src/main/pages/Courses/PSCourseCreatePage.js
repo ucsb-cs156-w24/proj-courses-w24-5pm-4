@@ -54,7 +54,8 @@ export default function CoursesCreatePage() {
   }
 
   if (mutation.isError) {
-    const psIdError = mutation.error.response.data?.message.includes("psId");
+    // const psIdError = mutation.error.response.data?.message.includes("psId");
+    const psIdError = mutation.error.response.status === 400;
     if (psIdError) {
       return (
         <BasicLayout>
