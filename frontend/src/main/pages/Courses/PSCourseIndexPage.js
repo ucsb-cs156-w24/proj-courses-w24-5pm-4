@@ -16,11 +16,11 @@ export default function CoursesIndexPage() {
     status: _status,
   } = useBackend(
     // Stryker disable next-line all : don't test internal caching of React Query
-    ["/api/courses/user/all"],
+    ["/api/courses/user/all/more"],
     {
       // Stryker disable next-line StringLiteral : GET is default, so replacing with "" is an equivalent mutation
       method: "GET",
-      url: "/api/courses/user/all",
+      url: "/api/courses/user/all/more",
     },
     [],
   );

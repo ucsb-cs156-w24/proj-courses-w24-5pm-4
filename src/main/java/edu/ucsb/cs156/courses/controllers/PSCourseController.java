@@ -3,6 +3,7 @@ package edu.ucsb.cs156.courses.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import edu.ucsb.cs156.courses.documents.Course;
 import edu.ucsb.cs156.courses.entities.PSCourse;
 import edu.ucsb.cs156.courses.entities.PersonalSchedule;
 import edu.ucsb.cs156.courses.entities.User;
@@ -41,6 +42,7 @@ public class PSCourseController extends ApiController {
   @Autowired PersonalScheduleRepository personalScheduleRepository;
   @Autowired UCSBCurriculumService ucsbCurriculumService;
   @Autowired ObjectMapper mapper;
+  @Autowired private ObjectMapper objectMapper;
 
   @Operation(summary = "List all courses (admin)")
   @PreAuthorize("hasRole('ROLE_ADMIN')")
@@ -56,6 +58,33 @@ public class PSCourseController extends ApiController {
   public Iterable<PSCourse> thisUsersCourses() {
     CurrentUser currentUser = getCurrentUser();
     Iterable<PSCourse> courses = coursesRepository.findAllByUserId(currentUser.getUser().getId());
+    return courses;
+  }
+
+  @Operation(summary = "List all courses (user)")
+  @PreAuthorize("hasRole('ROLE_USER')")
+  @GetMapping("/user/all/more")
+  public Iterable<PSCourse> thisUsersCoursesMore() throws JsonProcessingException {
+
+    CurrentUser currentUser = getCurrentUser();
+    Iterable<PSCourse> courses = coursesRepository.findAllByUserId(currentUser.getUser().getId());
+    for (PSCourse crs : courses) {
+      User u = crs.getUser();
+      Long psId = crs.getPsId();
+      if (crs.getCourseName() == null) {
+        PersonalSchedule ps =
+            personalScheduleRepository
+                .findByIdAndUser(psId, u)
+                .orElseThrow(() -> new EntityNotFoundException(PersonalSchedule.class, psId));
+        String qtr = ps.getQuarter();
+        String responseBody = ucsbCurriculumService.getJSONbyQtrEnrollCd(qtr, crs.getEnrollCd());
+        Course course = objectMapper.readValue(responseBody, Course.class);
+        crs.setQuarter(ps.getQuarter());
+        crs.setCourseName(course.getCourseId());
+        crs.setSchduleName(ps.getName());
+        crs = coursesRepository.save(crs);
+      }
+    }
     return courses;
   }
 
@@ -167,6 +196,7 @@ public class PSCourseController extends ApiController {
     primary.setUser(currentUser.getUser());
     primary.setEnrollCd(enrollCdPrimary);
     primary.setPsId(psId);
+
     PSCourse savedPrimary = coursesRepository.save(primary);
     savedCourses.add(savedPrimary);
     return savedCourses;

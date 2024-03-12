@@ -7,6 +7,7 @@ import { useBackend } from "main/utils/useBackend";
 
 function CourseForm({ initialCourse, submitAction, buttonLabel = "Create" }) {
   // Stryker disable all
+  // const yyyyq_regex = /((19)|(20))\d{2}[1-4]/i;
   const {
     register,
     formState: { errors },

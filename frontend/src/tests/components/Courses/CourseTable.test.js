@@ -73,8 +73,22 @@ describe("UserTable tests", () => {
       </QueryClientProvider>,
     );
 
-    const expectedHeaders = ["id", "Enrollment Code", "Personal Schedule ID"];
-    const expectedFields = ["id", "enrollCd", "psId"];
+    const expectedHeaders = [
+      "id",
+      "Course Name",
+      "Enrollment Code",
+      "Personal Schedule ID",
+      "Schdule Name",
+      "Quarter",
+    ];
+    const expectedFields = [
+      "id",
+      "courseName",
+      "enrollCd",
+      "psId",
+      "schduleName",
+      "quarter",
+    ];
     const testId = "CourseTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -115,8 +129,22 @@ describe("UserTable tests", () => {
       </QueryClientProvider>,
     );
 
-    const expectedHeaders = ["id", "Enrollment Code", "Personal Schedule ID"];
-    const expectedFields = ["id", "enrollCd", "psId"];
+    const expectedHeaders = [
+      "id",
+      "Course Name",
+      "Enrollment Code",
+      "Personal Schedule ID",
+      "Schdule Name",
+      "Quarter",
+    ];
+    const expectedFields = [
+      "id",
+      "courseName",
+      "enrollCd",
+      "psId",
+      "schduleName",
+      "quarter",
+    ];
     const testId = "CourseTable";
 
     expectedHeaders.forEach((headerText) => {
@@ -135,6 +163,10 @@ describe("UserTable tests", () => {
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "26",
     );
+
+    expect(
+      screen.getByTestId(`${testId}-cell-row-0-col-quarter`),
+    ).toHaveTextContent("W22");
 
     const deleteButton = screen.getByTestId(
       `CourseTable-cell-row-0-col-Delete-button`,
