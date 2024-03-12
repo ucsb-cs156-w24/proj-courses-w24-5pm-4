@@ -1312,27 +1312,9 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(personalScheduleRepository.findByIdAndUser(eq(13L), eq(thisUser)))
         .thenReturn(Optional.of(ps1));
 
-    PSCourse p1 =
-        PSCourse.builder()
-            .enrollCd("08292")
-            .psId(13L)
-            .courseName("CMPSC 156 ")
-            .schduleName("Test")
-            .quarter("20221")
-            .user(thisUser)
-            .id(1L)
-            .build();
+    PSCourse p1 = PSCourse.builder().enrollCd("08292").psId(13L).user(thisUser).id(1L).build();
 
-    PSCourse p2 =
-        PSCourse.builder()
-            .enrollCd("08300")
-            .psId(13L)
-            .courseName("CMPSC 156 ")
-            .schduleName("Test")
-            .quarter("20221")
-            .user(thisUser)
-            .id(2L)
-            .build();
+    PSCourse p2 = PSCourse.builder().enrollCd("08300").psId(13L).user(thisUser).id(2L).build();
 
     ArrayList<PSCourse> expectedCourses = new ArrayList<>();
     expectedCourses.addAll(Arrays.asList(p1, p2));
@@ -1376,16 +1358,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(personalScheduleRepository.findByIdAndUser(eq(13L), eq(thisUser)))
         .thenReturn(Optional.of(ps1));
 
-    PSCourse p1 =
-        PSCourse.builder()
-            .enrollCd("08292")
-            .psId(1L)
-            .courseName("CMPSC 156 ")
-            .schduleName("Test")
-            .quarter("20221")
-            .user(thisUser)
-            .id(1L)
-            .build();
+    PSCourse p1 = PSCourse.builder().enrollCd("08292").psId(1L).user(thisUser).id(1L).build();
 
     ArrayList<PSCourse> expectedCourses = new ArrayList<>();
     expectedCourses.addAll(Arrays.asList(p1));
@@ -1418,16 +1391,7 @@ public class PSCourseControllerTests extends ControllerTestCase {
     when(personalScheduleRepository.findByIdAndUser(eq(13L), eq(thisUser)))
         .thenReturn(Optional.of(ps1));
 
-    PSCourse p1 =
-        PSCourse.builder()
-            .enrollCd("08292")
-            .psId(13L)
-            // .courseName("CMPSC 156 ")
-            // .schduleName("Test")
-            // .quarter("S22")
-            .user(thisUser)
-            .id(1L)
-            .build();
+    PSCourse p1 = PSCourse.builder().enrollCd("08292").psId(13L).user(thisUser).id(1L).build();
 
     PSCourse p2 =
         PSCourse.builder()

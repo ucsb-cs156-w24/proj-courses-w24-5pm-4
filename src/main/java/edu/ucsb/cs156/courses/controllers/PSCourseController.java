@@ -73,16 +73,19 @@ public class PSCourseController extends ApiController {
     for (PSCourse crs : courses) {
       User u = crs.getUser();
       Long psId = crs.getPsId();
-      PersonalSchedule ps =
-          personalScheduleRepository
-              .findByIdAndUser(psId, u)
-              .orElseThrow(() -> new EntityNotFoundException(PersonalSchedule.class, psId));
-      String qtr = ps.getQuarter();
-      String responseBody = ucsbCurriculumService.getJSONbyQtrEnrollCd(qtr, crs.getEnrollCd());
-      Course course = objectMapper.readValue(responseBody, Course.class);
-      crs.setQuarter(ps.getQuarter());
-      crs.setCourseName(course.getCourseId());
-      crs.setSchduleName(ps.getName());
+      if (crs.getCourseName() == null) {
+        PersonalSchedule ps =
+            personalScheduleRepository
+                .findByIdAndUser(psId, u)
+                .orElseThrow(() -> new EntityNotFoundException(PersonalSchedule.class, psId));
+        String qtr = ps.getQuarter();
+        String responseBody = ucsbCurriculumService.getJSONbyQtrEnrollCd(qtr, crs.getEnrollCd());
+        Course course = objectMapper.readValue(responseBody, Course.class);
+        crs.setQuarter(ps.getQuarter());
+        crs.setCourseName(course.getCourseId());
+        crs.setSchduleName(ps.getName());
+        crs = coursesRepository.save(crs);
+      }
     }
     return courses;
   }
