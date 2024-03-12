@@ -65,9 +65,7 @@ public class PSCourseController extends ApiController {
   @PreAuthorize("hasRole('ROLE_USER')")
   @GetMapping("/user/all/more")
   public Iterable<PSCourse> thisUsersCoursesMore() throws JsonProcessingException {
-    // public ArrayList<PSCourse> UsersCoursesByPsId(@Parameter(name = "psId") @RequestParam Long
-    // psId)
-    //     throws JsonProcessingException {
+
     CurrentUser currentUser = getCurrentUser();
     Iterable<PSCourse> courses = coursesRepository.findAllByUserId(currentUser.getUser().getId());
     for (PSCourse crs : courses) {
