@@ -1422,7 +1422,6 @@ public class PSCourseControllerTests extends ControllerTestCase {
     verify(coursesRepository, times(1)).findAllByUserId(eq(thisUser.getId()));
 
     String responseString = response.getResponse().getContentAsString();
-    // Map<String, Object> json = responseToJson(response);
     String expectedJson = mapper.writeValueAsString(expected);
     assertEquals(expectedJson, responseString);
   }
