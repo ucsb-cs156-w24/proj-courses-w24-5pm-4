@@ -1425,4 +1425,48 @@ public class PSCourseControllerTests extends ControllerTestCase {
     String expectedJson = mapper.writeValueAsString(expected);
     assertEquals(expectedJson, responseString);
   }
+
+  @WithMockUser(roles = {"USER"})
+  @Test
+  public void api__user_logged_in__no_personal_schedule_when_branch_not_running() throws Exception {
+
+    User thisUser = currentUserService.getCurrentUser().getUser();
+
+    PersonalSchedule ps1 =
+        PersonalSchedule.builder()
+            .name("Test")
+            .description("Test")
+            .quarter("20221")
+            .user(thisUser)
+            .id(13L)
+            .build();
+    when(personalScheduleRepository.findByIdAndUser(eq(13L), eq(thisUser)))
+        .thenReturn(Optional.of(ps1));
+
+    PSCourse p1 =
+        PSCourse.builder()
+            .enrollCd("08292")
+            .psId(12L)
+            .courseName("CMPSC   156  ")
+            .schduleName("Test")
+            .quarter("20221")
+            .user(thisUser)
+            .id(1L)
+            .build();
+
+    ArrayList<PSCourse> expectedCourses = new ArrayList<>();
+    expectedCourses.addAll(Arrays.asList(p1));
+    when(coursesRepository.findAllByUserId(thisUser.getId())).thenReturn(expectedCourses);
+    when(ucsbCurriculumService.getJSONbyQtrEnrollCd(eq("20221"), eq("08292")))
+        .thenReturn(SectionFixtures.SECTION_JSON_CMPSC156_UNEXPECTED);
+
+    MvcResult response =
+        mockMvc.perform(get("/api/courses/user/all/more")).andExpect(status().is(200)).andReturn();
+    // String actual = response.getResponse().getContentAsString();
+    // boolean correct = actual.contains("EntityNotFoundException");
+    // assertEquals(correct, true);
+    String responseString = response.getResponse().getContentAsString();
+    String expectedJson = mapper.writeValueAsString(expectedCourses);
+    assertEquals(expectedJson, responseString);
+  }
 }
