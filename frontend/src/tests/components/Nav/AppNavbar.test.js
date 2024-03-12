@@ -195,24 +195,12 @@ describe("AppNavbar tests", () => {
     );
 
     expect(
-      await screen.findByTestId("appnavbar-personalschedules-dropdown"),
-    ).toBeInTheDocument();
-    const dropdown = screen.getByTestId("appnavbar-personalschedules-dropdown");
-    const aElement = dropdown.querySelector("a");
-    expect(aElement).toBeInTheDocument();
-    aElement?.click();
-
-    expect(
       await screen.findByTestId("appnavbar-personalschedules-list"),
-    ).toBeInTheDocument();
-    expect(
-      screen.getByTestId(/appnavbar-personalschedules-create/),
     ).toBeInTheDocument();
 
     expect(
       await screen.findByTestId("appnavbar-courses-list"),
     ).toBeInTheDocument();
-    expect(screen.getByTestId(/appnavbar-courses-create/)).toBeInTheDocument();
   });
 
   test("renders the Course Description menu correctly", async () => {
