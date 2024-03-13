@@ -23,4 +23,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-w24/proj-courses-w24-5pm-4
 owner: ucsb-cs156-w24
 repo_name: proj-courses-w24-5pm-4
-pull_requests: [{"author":{"id":"U_kgDOB7tbUw","is_bot":false,"login":"Torry051","name":"Rui Tong"},"headRefName":"rt-PSErrorMessage","number":35,"title":"FEATURE: More descriptive error message on personal schedule","url":"https://github.com/ucsb-cs156-w24/proj-courses-w24-5pm-4/pull/35"},{"author":{"id":"U_kgDOB7tbUw","is_bot":false,"login":"Torry051","name":"Rui Tong"},"headRefName":"rt-PSCourseDescription2","number":28,"title":"FEATURE: More descriptive personal courses page","url":"https://github.com/ucsb-cs156-w24/proj-courses-w24-5pm-4/pull/28"}]
+pull_requests: [{"author":{"id":"U_kgDOB7tbUw","is_bot":false,"login":"Torry051","name":"Rui Tong"},"headRefName":"rt-PSErrorMessage","number":35,"title":"FEATURE: More descriptive error message on personal schedule","url":"https://github.com/ucsb-cs156-w24/proj-courses-w24-5pm-4/pull/35"}]
