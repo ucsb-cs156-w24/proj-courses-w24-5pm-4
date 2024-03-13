@@ -232,50 +232,50 @@ describe("CoursesCreatePage tests", () => {
     expect(button).toHaveAttribute("style", "float: right;");
   });
 
-  // test("when test message do not have psid, we get other error", async () => {
-  //   const queryClient = new QueryClient();
+  test("when test message do not have psid, we get other error", async () => {
+    const queryClient = new QueryClient();
 
-  //   axiosMock.onPost("/api/courses/post").reply(400, {
-  //     message: " for method parameter type Long is not present",
-  //   });
+    axiosMock.onPost("/api/courses/post").reply(400, {
+      message: " for method parameter type Long is not present",
+    });
 
-  //   render(
-  //     <QueryClientProvider client={queryClient}>
-  //       <MemoryRouter>
-  //         <CoursesCreatePage />
-  //       </MemoryRouter>
-  //     </QueryClientProvider>,
-  //   );
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <CoursesCreatePage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-  //   expect(
-  //     await screen.findByTestId("CourseForm-enrollCd"),
-  //   ).toBeInTheDocument();
+    expect(
+      await screen.findByTestId("CourseForm-enrollCd"),
+    ).toBeInTheDocument();
 
-  //   const psIdField = document.querySelector("#CourseForm-psId");
-  //   const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
-  //   const submitButton = screen.getByTestId("CourseForm-submit");
+    const psIdField = document.querySelector("#CourseForm-psId");
+    const enrollCdField = screen.getByTestId("CourseForm-enrollCd");
+    const submitButton = screen.getByTestId("CourseForm-submit");
 
-  //   fireEvent.change(psIdField, { target: { value: "" } });
-  //   fireEvent.change(enrollCdField, { target: { value: "00026" } });
+    fireEvent.change(psIdField, { target: { value: "" } });
+    fireEvent.change(enrollCdField, { target: { value: "00026" } });
 
-  //   expect(submitButton).toBeInTheDocument();
+    expect(submitButton).toBeInTheDocument();
 
-  //   fireEvent.click(submitButton);
+    fireEvent.click(submitButton);
 
-  //   await screen.findByTestId("PSCourseCreate-Error");
-  //   const PSError = screen.getByTestId("PSCourseCreate-Error");
-  //   expect(PSError).toBeInTheDocument();
+    await screen.findByTestId("PSCourseCreate-Error");
+    const PSError = screen.getByTestId("PSCourseCreate-Error");
+    expect(PSError).toBeInTheDocument();
 
-  //   expect(
-  //     screen.queryByText(
-  //       /Please select a personal schedule or create a new one./,
-  //     ),
-  //   ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(
+        /Please select a personal schedule or create a new one./,
+      ),
+    ).not.toBeInTheDocument();
 
-  //   expect(
-  //     screen.queryByText(
-  //       /EnrollCd: 00026 is invalid, (enrollCd must be valid, numeric, and no more than five digits)/,
-  //     ),
-  //   ).not.toBeInTheDocument();
-  // });
+    expect(
+      screen.queryByText(
+        /EnrollCd: 00026 is invalid, (enrollCd must be valid, numeric, and no more than five digits)/,
+      ),
+    ).not.toBeInTheDocument();
+  });
 });
